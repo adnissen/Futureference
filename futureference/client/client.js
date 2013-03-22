@@ -1,11 +1,11 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("quotes");
 
-Template.hello.greeting = function () {
+Template.main.greeting = function () {
  return "Welcome to futureference.";
 };
 
-Template.hello.events({
+Template.main.events({
   'click input' : function () {
   // template data, if any, is available in 'this'
   if (typeof console !== 'undefined')
