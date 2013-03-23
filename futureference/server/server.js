@@ -17,5 +17,4 @@ Meteor.startup(function() {
 			Quotes.insert({quote: "Do you like chinese food? I dont", owner: 5344, likes: 1 });
 			Quotes.insert({quote: "No Cops No Stops", owner: 543, likes: 0 });
 		}
-
 });
