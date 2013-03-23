@@ -27,6 +27,14 @@ if (Meteor.isServer) {
 			 	newTotal++;
 			 	Meteor.users.update({_id: userId}, {$set: {totalLiked: newTotal}});
 		 	}
+		 },
+
+		 //quote related methods
+		 addQuote:function(_userId, _quote)
+		 {
+		 	// they can't add quotes to itself
+		 	if (_userId != Meteor.userId())
+		 		Quotes.insert({quote: _quote, owner: _userId, likes: 0});
 		 }
 	});
 }
