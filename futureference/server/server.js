@@ -11,5 +11,5 @@ Meteor.publish("quotes", function() {
 Meteor.startup(function() {
 	//just add a quote if the db is empty for testing purposes
 	if (Quotes.find().count() == 0)
-			Quotes.insert({public: true, quote: "hi, test", owner: 343, likes: 1 });
+			Quotes.insert({quote: "hi, test", owner: 343, likes: 1 });
 });
