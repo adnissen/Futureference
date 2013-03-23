@@ -5,7 +5,7 @@ Meteor.publish("directory", function() {
 Meteor.publish("quotes", function() {
 	//right now it only returns "public" quotes
 	//it should eventually search through a friendslist and return those
-	return Quotes.find({"public": true});
+	return Quotes.find({});
 });
 
 Meteor.startup(function() {
