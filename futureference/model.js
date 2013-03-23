@@ -28,6 +28,9 @@ if (Meteor.isServer) {
 			 	Meteor.users.update({_id: userId}, {$set: {totalLiked: newTotal}});
 		 	}
 		 },
+		 viewLikeCount:function(_userId, _quote){
+		 	return Quotes.findOne({_id: _quote}).likes;
+		 },
 
 		 //quote related methods
 		 addQuote:function(_userId, _quote)
