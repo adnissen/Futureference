@@ -3,7 +3,12 @@
 </head>
 
 <body>
-  {{> main}}
+<div class="row">
+	<div class="span6 offset3">
+  {{loginButtons}}
+</div>
+</div>
+  {{> userPage}}
 </body>
 
 <template name="main">
@@ -11,7 +16,6 @@
   	<div class="span6 offset3">
   {{! this is provided by the accounts-ui package}}
   {{! I want to figure out how to style it with bootstrap}}
-  {{loginButtons}}
   <h1>Hello World!</h1>
   {{greeting}}
   <br>
@@ -19,10 +23,42 @@
   {{#each userQuotes}}
   {{quote}}<br>{{owner}}<br> {{likes}}<br>
   {{/each}}
+  <br>
+  <br>
+  <br>
+</div>
+</div>
+</template>
 
-  <br>
-  <br>
-  <br>
+<template name="userPage">
+<div class="row">
+	<div class="span6 offset3">
+		<h1>{{userName}}</h1>
+	</div>
 </div>
+<div class="row">
+	<div class="span6 offset3">
+		<input type="text" id="txtAddQuote" placeholder="So fickle is the heart..."/>
+	</div>
 </div>
+<div class="row">
+	<div class="span6 offset3">
+		{{#each user}}
+		{{> quote}}
+		{{/each}}
+	</div>
+</div>
+</template>
+
+<template name="quote">
+{{#if selectedQuote}}
+<p>{{quote}}</p>
+{{#if isOwner}}
+<input type="button" value="Delete" class="btnDelete btn btn-link"/>
+{{/if}}
+<input type="button" value="Favorite" class="btnFavorite btn-link"/>
+{{/if}}
+{{#unless selectedQuote}}
+<p>{{quote}}</p>
+{{/unless}}
 </template>
