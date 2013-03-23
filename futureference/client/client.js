@@ -35,7 +35,7 @@ Template.main.quote = function() {
 };
 
 Template.userPage.user = function() {
-	return Quotes.find({owner: 5344});
+	return Quotes.find({owner: 'cQcDo9thY8FswaDMt'});
 }
 
 Template.main.events({});
@@ -46,5 +46,8 @@ Template.quote.events({
 			Session.set("selectedQuote", null);
 		else
 			Session.set("selectedQuote", this._id);
+	},
+	'click input.btnDelete': function(){
+		Meteor.call("deleteQuote", Meteor.userId(), this._id);
 	}
 });

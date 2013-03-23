@@ -40,8 +40,8 @@ if (Meteor.isServer) {
 		 		Quotes.insert({quote: _quote, owner: _userId, likes: 0});
 		 },
 		 deleteQuote:function(_userId, _quote){
-		 	if (_userId == Meter.userId()){ // only remove own quotes
-		 		Quotes.remove({_id: _quote._id});
+		 	if (_userId == Meteor.userId()){ // only remove own quotes
+		 		Quotes.remove({_id: _quote});
 		 		}
 		 	},	
 		 addFriend:function(_userId, friendEmail){
