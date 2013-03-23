@@ -7,9 +7,18 @@
 </body>
 
 <template name="main">
+  <div class="row">
+  	<div class="span6 offset3">
+  {{! this is provided by the accounts-ui package}}
+  {{! I want to figure out how to style it with bootstrap}}
   {{loginButtons}}
   <h1>Hello World!</h1>
   {{greeting}}
-  <p>This is pretty much the basic html that comes with new meteor projects, but it shows how handlebars and templates work. Eventually, this page will be a login, as well as the place to view quotes by a user or add a quote.</p>
-  <input type="button" value="Click" class="btn" />
+  <br>
+  <br>
+  {{#each userQuotes}}
+  {{quote}}<br>
+  {{/each}}
+</div>
+</div>
 </template>
