@@ -9,6 +9,11 @@ Template.main.userQuotes = function() {
  	return Quotes.find({owner: Meteor.userId()});
 };
 
+Template.userPage.userName = function() {
+	return "Catherine Kate";
+	//eventually return the Session variable that has the page stored
+};
+
 Template.quote.selectedQuote = function() {
 	if (Meteor.userId() != null)
 	{
@@ -37,6 +42,9 @@ Template.main.events({});
 
 Template.quote.events({
 	'click' : function() {
-		Session.set("selectedQuote", this._id);
+		if (Session.get("selectedQuote") == this._id)
+			Session.set("selectedQuote", null);
+		else
+			Session.set("selectedQuote", this._id);
 	}
 });
