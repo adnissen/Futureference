@@ -35,6 +35,12 @@ if (Meteor.isServer) {
 		 	// they can't add quotes to itself
 		 	if (_userId != Meteor.userId())
 		 		Quotes.insert({quote: _quote, owner: _userId, likes: 0});
+		 },
+		 addFriend:function(_userId, friendEmail){
+		 	var friendId = Meteor.users.findOne({emails: {$elemMatch: {address: friendEmail}}})._id;
+
+			Meteor.users.update({_id: _userId}, {$push: {friendsList: friendId}});
+
 		 }
 	});
 }
