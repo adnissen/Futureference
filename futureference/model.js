@@ -11,8 +11,22 @@ Quotes.allow({
 	}
 });
 
-Meteor.methods({
-	/* put all your sweet new methods here
-	 * it's trusted code, so you can do pretty much anything
-	 */
-});
+if (Meteor.isServer) {
+	Meteor.methods({
+		/* put all your sweet new methods here
+		 * it's trusted code, so you can do pretty much anything
+		 */
+		 //user related methods
+		 addToLikeCount:function(_userId)
+		 {
+		 	var userId = Meteor.userId();
+		 	if (userId == _userId)
+		 	{
+			 	var user = Meteor.users.findOne({_id: userId});
+			 	var newTotal = user.totalLiked;
+			 	newTotal++;
+			 	Meteor.users.update({_id: userId}, {$set: {totalLiked: newTotal}});
+		 	}
+		 }
+	});
+}
