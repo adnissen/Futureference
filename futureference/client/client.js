@@ -10,10 +10,15 @@ Template.main.userQuotes = function() {
 };
 
 Template.quote.selectedQuote = function() {
-	if (Session.get("selectedQuote") == this._id)
-		return true;
+	if (Meteor.userId() != null)
+	{
+		if (Session.get("selectedQuote") == this._id)
+			return true;
+		else
+			return false;
+	}
 	else
-		return false;
+		return false;	
 };
 
 Template.quote.isOwner = function() {
