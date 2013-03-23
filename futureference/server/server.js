@@ -18,4 +18,4 @@ Meteor.startup(function() {
 			Quotes.insert({quote: "No Cops No Stops", owner: 543, likes: 0 });
 		}
 
-});
+});	

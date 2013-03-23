@@ -36,11 +36,17 @@ if (Meteor.isServer) {
 		 	if (_userId != Meteor.userId())
 		 		Quotes.insert({quote: _quote, owner: _userId, likes: 0});
 		 },
+		 deleteQuote:function(_userId, _quote){
+		 	if (_userId == Meter.userId()){ // only remove own quotes
+		 		Quotes.remove({_id: _quote._id});
+		 		}
+		 	},	
 		 addFriend:function(_userId, friendEmail){
 		 	var friendId = Meteor.users.findOne({emails: {$elemMatch: {address: friendEmail}}})._id;
 
 			Meteor.users.update({_id: _userId}, {$push: {friendsList: friendId}});
 
 		 }
+		
 	});
 }
