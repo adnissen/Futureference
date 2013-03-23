@@ -2,15 +2,23 @@ Meteor.subscribe("directory");
 Meteor.subscribe("quotes");
 
 Template.main.greeting = function () {
- return "Welcome to futureference.";
+ 	return "Welcome to futureference.";
 };
 
 Template.userPage.userName = function() {
- return "User Name";
+ 	return "User Name";
 };
 
-Template.main.userQuotes = function() { 
- return Quotes.find({owner: Meteor.userId()});
+Template.quote.selectedQuote = function() {
+	return true;
+};
+
+Template.quote.isOwner = function() {
+	return Meteor.userId() == this.owner;
+};
+
+Template.main.quote = function() { 
+ 	return Quotes.find({owner: Meteor.userId()});
 };
 
 Template.userPage.user = function() {
