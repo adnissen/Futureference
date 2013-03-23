@@ -10,7 +10,10 @@ Template.userPage.userName = function() {
 };
 
 Template.quote.selectedQuote = function() {
-	return true;
+	if (Session.get("selectedQuote") == this._id)
+		return true;
+	else
+		return false;
 };
 
 Template.quote.isOwner = function() {
@@ -26,3 +29,9 @@ Template.userPage.user = function() {
 }
 
 Template.main.events({});
+
+Template.quote.events({
+	'click' : function() {
+		Session.set("selectedQuote", this._id);
+	}
+});
