@@ -49,6 +49,11 @@ if (Meteor.isServer) {
 
 			Meteor.users.update({_id: _userId}, {$push: {friendsList: friendId}});
 
+		 },
+		 topQuotes:function(){
+		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
+		 	return topQuotes; 
+				
 		 }
 		
 	});
