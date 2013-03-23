@@ -6,7 +6,8 @@ Template.main.greeting = function () {
 };
 
 Template.main.userQuotes = function() {
- return Quotes.find();
+ 
+ return Quotes.find({owner: Meteor.userID()});
 };
 
 Template.main.events({});
