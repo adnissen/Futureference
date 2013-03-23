@@ -56,7 +56,9 @@
 {{#if isOwner}}
 <input type="button" value="Delete" class="btnDelete btn btn-link"/>
 {{/if}}
+{{#unless isOwner}}
 <input type="button" value="Favorite" class="btnFavorite btn-link"/>
+{{/unless}}
 {{/if}}
 {{#unless selectedQuote}}
 <p>{{quote}}</p>
