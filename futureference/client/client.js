@@ -49,11 +49,13 @@ Template.main.currentPage = function() {
 }
 
 Template.home.userQuotes = function() {
+
  	return Quotes.find({owner: Meteor.userId()});
 };
 
 Template.userPage.userName = function() {
-	return "Kate";
+var username = Meteor.users.findOne({_id: Session.get("currentPage")}).username;
+return username;
 	//eventually return the Session variable that has the page stored
 };
 Template.quote.total = function(){
@@ -111,9 +113,8 @@ Template.quote.events({
 		Meteor.call("deleteQuote", Meteor.userId(), this._id);
 	},
 	'click input.btnFavorite': function(){
-		console.log('Test');
-
 		Meteor.call("addToFavs", this);
+
 	}
 });
 
