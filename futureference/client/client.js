@@ -48,8 +48,8 @@ Template.main.currentPage = function() {
 	return Session.get("currentPage");
 }
 
-Template.home.loggedIn = function() {
-	return Meteor.userId();
+Template.home.userQuotes = function() {
+ 	return Quotes.find({owner: Meteor.userId()});
 };
 
 Template.userPage.userName = function() {
@@ -85,7 +85,7 @@ Template.userPage.user = function() {
 	//eventually it should be tied to a Session variable like
 	//Session.get("currentPage", userId);
 	return Quotes.find({owner: Session.get("currentPage")});
-}
+};
 
 Template.main.events({
 	'click input.btnHome':function(){
@@ -102,6 +102,11 @@ Template.quote.events({
 	},
 	'click input.btnDelete': function(){
 		Meteor.call("deleteQuote", Meteor.userId(), this._id);
+	},
+	'click input.btnFavorite': function(){
+		console.log('Test');
+
+		Meteor.call("addToFavs", this);
 	}
 });
 

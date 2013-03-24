@@ -17,16 +17,17 @@ if (Meteor.isServer) {
 		 * it's trusted code, so you can do pretty much anything
 		 */
 		 //user related methods
-		 addToLikeCount:function(_userId)
+		 addToFavs:function(quote)
 		 {
-		 	var userId = Meteor.userId();
-		 	if (userId == _userId)
-		 	{
-			 	var user = Meteor.users.findOne({_id: userId});
-			 	var newTotal = user.totalLiked;
-			 	newTotal++;
-			 	Meteor.users.update({_id: userId}, {$set: {totalLiked: newTotal}});
-		 	}
+		 	var _userId = Meteor.userId();
+		 	var _quoteId = quote._id;
+			 var newTotal = quote.totalLiked;
+			 console.log(quote.totalLiked);
+			 newTotal++;
+			 Quotes.update({_id: _quoteId}, {$set: {totalLiked: newTotal}});
+
+			 Meteor.users.update({_id: _userId}, {$push: {favsList: _quoteId}})
+		 	
 		 },
 		 viewLikeCount:function(_userId, _quote){
 		 	return Quotes.findOne({_id: _quote}).likes;
@@ -37,7 +38,7 @@ if (Meteor.isServer) {
 		 {
 		 	// they can't add quotes to itself
 		 	if (_userId != Meteor.userId())
-		 		Quotes.insert({quote: _quote, owner: _userId, likes: 0});
+		 		Quotes.insert({quote: _quote, owner: _userId, totalLiked: 0});
 		 },
 		 deleteQuote:function(_userId, _quote){
 		 	if (_userId == Meteor.userId()){ // only remove own quotes
