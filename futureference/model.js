@@ -29,7 +29,18 @@ if (Meteor.isServer) {
 			 Meteor.users.update({_id: _userId}, {$push: {favsList: _quoteId}})
 		 	
 		 },
-		
+		removeFavs:function(quote)
+		 {
+		 	var _userId = Meteor.userId();
+		 	var _quoteId = quote._id;
+			 var newTotal = quote.totalLiked;
+			 console.log(quote.totalLiked);
+			 newTotal--;
+			 Quotes.update({_id: _quoteId}, {$set: {totalLiked: newTotal}});
+
+			 Meteor.users.remove({_id: _userId}, {$push: {favsList: _quoteId}})
+		 	
+		 },
 
 		 //quote related methods
 		 addQuote:function(_userId, _quote)
@@ -50,12 +61,10 @@ if (Meteor.isServer) {
 
 		 },
 		 topQuotes:function(){
-		 	console.log('fuck 2');
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
-		 	console.log('fuck');
 		 	console.log(topQuotes);
 		 	return topQuotes; 
-			return topQuotes; 	
+
 		 },
 		 getIdFromEmail:function(email){
 		 	var obj = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
@@ -86,6 +95,8 @@ if (Meteor.isServer) {
 		 		result.friendId = friend2._id;
 		 		return result;
 		 	}
+
 		 }
+		
 	});
 }

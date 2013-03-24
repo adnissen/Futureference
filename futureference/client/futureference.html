@@ -86,7 +86,13 @@
 <input type="button" value="Delete" class="btnDelete btn btn-link"/>
 {{/if}}
 {{#unless isOwner}}
+{{#unless selectedQuote}}
+
 <input type="button" value="Favorite" class="btnFavorite btn-link"/>
+{{else}}
+<input type="button" value="Favorited" class="btnUnFav btn-link"/>
+
+{{/unless}}
 
 {{/unless}}
 {{/if}}
