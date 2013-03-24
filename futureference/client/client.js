@@ -3,6 +3,11 @@ Meteor.subscribe("quotes");
 
 
 Session.setDefault("currentPage", 'cQcDo9thY8FswaDMt');
+
+Accounts.ui.config({
+	passwordSignupFields: 'USERNAME_AND_EMAIL'
+});
+
 //THIS CODE WAS TAKEN FROM THE 'TODOS' EXAMPLE
 //*******************************
 // Returns an event map that handles the "escape" and "return" keys and
