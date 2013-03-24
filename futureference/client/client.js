@@ -56,7 +56,10 @@ Template.userPage.userName = function() {
 	return "Kate";
 	//eventually return the Session variable that has the page stored
 };
-
+Template.quote.total = function(){
+	console.log(this.totalLiked);
+	return ("Likes: "  + this.totalLiked.toString());
+}
 Template.quote.selectedQuote = function() {
 	if (Meteor.userId() != null)
 	{
