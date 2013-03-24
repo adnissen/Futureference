@@ -55,8 +55,8 @@ Template.home.userQuotes = function() {
 };
 
 Template.userPage.userName = function() {
-var username =Meteor.users.findOne({_id: Session.get("currentPage")}).username;
-return username;
+	var username = Meteor.users.findOne({_id: Session.get("currentPage")}).username;
+	return username;
 	//eventually return the Session variable that has the page stored
 };
 Template.quote.total = function(){
@@ -138,7 +138,7 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 				evt.target.value = "";
 			}
 		});*/
-		Session.set("currentPage", text);
+		Session.set("currentPage", Meteor.users.findOne({emails: {$elemMatch: {address: text}}})._id);
 	}
 }));
 
