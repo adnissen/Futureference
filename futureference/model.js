@@ -52,13 +52,10 @@ if (Meteor.isServer) {
 		 topQuotes:function(){
 		 	console.log('fuck 2');
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
-<<<<<<< HEAD
 		 	console.log('fuck');
 		 	console.log(topQuotes);
 		 	return topQuotes; 
-				
-=======
-		 	return topQuotes; 	
+			return topQuotes; 	
 		 },
 		 getIdFromEmail:function(email){
 		 	var obj = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
@@ -88,7 +85,6 @@ if (Meteor.isServer) {
 		 		console.log("are not friends");
 		 		return false;
 		 	}
->>>>>>> a58d191aa65a5aae7bf56d7c9dce6244bce409ec
 		 }
 	});
 }
