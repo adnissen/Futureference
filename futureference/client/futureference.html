@@ -9,9 +9,6 @@
    </div>
 </div>
   {{> main}}
-
-
-<script src="lib/bootstrap.js"></script>
 </body>
 
 <template name="main">
@@ -81,7 +78,7 @@
 
 <template name="quote">
 {{#if selectedQuote}}
-<p data-toggle="tooltip" class="quotes" data-trigger="hover" data-animation = "true" title= "Likes: {{totalLiked}}">{{quote}}</p>
+<p data-toggle="tooltip" class="quotes" data-animation = "true" title= "Likes: {{totalLiked}}">{{quote}}</p>
 {{#if isOwner}}
 <input type="button" value="Delete" class="btnDelete btn btn-link"/>
 {{/if}}
