@@ -29,9 +29,7 @@ if (Meteor.isServer) {
 			 Meteor.users.update({_id: _userId}, {$push: {favsList: _quoteId}})
 		 	
 		 },
-		 viewLikeCount:function(_userId, _quote){
-		 	return Quotes.findOne({_id: _quote}).likes;
-		 },
+		
 
 		 //quote related methods
 		 addQuote:function(_userId, _quote)
