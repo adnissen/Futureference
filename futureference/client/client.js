@@ -131,11 +131,11 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 	ok: function(text, evt){
 		//this needs to only work if the email is on their friends list
 		//but it can wait I suppose
-		var friendId = Meteor.users.findOne({emails: {$elemMatch : {address: text}}})._id;
-		Session.set("currentPage", friendId);
-		evt.target.value = "";
+		Meteor.call("checkFriend", Meteor.userId(), text, function(err, data){
+			Session.set("currentPage", data.friendId);
+		});
 	}
-}))
+}));
 
 //for the addquote enter key button
 Template.userPage.events(okCancelEvents('#txtAddQuote',{
