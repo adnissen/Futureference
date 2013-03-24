@@ -74,6 +74,10 @@ Template.quote.isOwner = function() {
 	return Meteor.userId() == this.owner;
 };
 
+Template.home.loggedIn = function() {
+	return Meteor.userId();
+};
+
 Template.home.quote = function() { 
 	//this is the main page, so it just shows the quotes 
 	//of the logged in user
