@@ -6,27 +6,40 @@
 <div class="row">
 	<div class="span6 offset3">
   {{loginButtons}}
+   </div>
 </div>
-</div>
-  {{> userPage}}
+  {{> main}}
+
 </body>
 
 <template name="main">
+  {{#if currentPage}}
+  {{> userPage}}
+  {{else}}
+  {{> home}}
+  {{/if}}
+</template>
+
+<template name="home">
   <div class="row">
   	<div class="span6 offset3">
-  {{! this is provided by the accounts-ui package}}
-  {{! I want to figure out how to style it with bootstrap}}
   <h1>Hello World!</h1>
   {{greeting}}
   <br>
   <br>
-  {{#each userQuotes}}
-  {{quote}}<br>{{owner}}<br> {{likes}}<br>
-  {{/each}}
-  <br>
-  <br>
-  <br>
+  </div>
 </div>
+  {{> userSearch}}
+  <br>
+  <br>
+  <br>
+</template>
+
+<template name="userSearch">
+<div class="row">
+	<div class="span6 offset3">
+	<input type="text" id="txtFriendSearch" placeholder="Type in a friend's Email!"/>
+	</div>
 </div>
 </template>
 

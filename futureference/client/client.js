@@ -2,7 +2,7 @@ Meteor.subscribe("directory");
 Meteor.subscribe("quotes");
 
 
-Session.setDefault("currentPage", 'cQcDo9thY8FswaDMt');
+Session.setDefault("currentPage", 0);
 
 Accounts.ui.config({
 	passwordSignupFields: 'USERNAME_AND_EMAIL'
@@ -40,11 +40,15 @@ var okCancelEvents = function (selector, callbacks) {
 //*******************************
 
 
-Template.main.greeting = function () {
+Template.home.greeting = function () {
  	return "Welcome to futureference.";
 };
 
-Template.main.userQuotes = function() {
+Template.main.currentPage = function() {
+	return Session.get("currentPage");
+}
+
+Template.home.userQuotes = function() {
  	return Quotes.find({owner: Meteor.userId()});
 };
 
@@ -70,7 +74,7 @@ Template.quote.isOwner = function() {
 	return Meteor.userId() == this.owner;
 };
 
-Template.main.quote = function() { 
+Template.home.quote = function() { 
 	//this is the main page, so it just shows the quotes 
 	//of the logged in user
  	return Quotes.find({owner: Meteor.userId()});
@@ -83,8 +87,6 @@ Template.userPage.user = function() {
 	return Quotes.find({owner: Session.get("currentPage")});
 }
 
-Template.main.events({});
-
 Template.quote.events({
 	'click' : function() {
 		if (Session.get("selectedQuote") == this._id)
@@ -96,6 +98,16 @@ Template.quote.events({
 		Meteor.call("deleteQuote", Meteor.userId(), this._id);
 	}
 });
+
+Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
+	ok: function(text, evt){
+		//this needs to only work if the email is on their friends list
+		//but it can wait I suppose
+		var friendId = Meteor.users.findOne({emails: {$elemMatch : {address: text}}})._id;
+		Session.set("currentPage", friendId);
+		evt.target.value = "";
+	}
+}))
 
 //for the addquote enter key button
 Template.userPage.events(okCancelEvents('#txtAddQuote',{
