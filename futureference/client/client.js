@@ -87,6 +87,12 @@ Template.userPage.user = function() {
 	return Quotes.find({owner: Session.get("currentPage")});
 }
 
+Template.main.events({
+	'click input.btnHome':function(){
+		Session.set("currentPage", 0);
+	}
+});
+
 Template.quote.events({
 	'click' : function() {
 		if (Session.get("selectedQuote") == this._id)
