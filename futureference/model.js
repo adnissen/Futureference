@@ -50,7 +50,10 @@ if (Meteor.isServer) {
 
 		 },
 		 topQuotes:function(){
+		 	console.log('fuck 2');
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
+		 	console.log('fuck');
+		 	console.log(topQuotes);
 		 	return topQuotes; 
 				
 		 }

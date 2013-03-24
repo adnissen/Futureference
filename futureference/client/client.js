@@ -41,6 +41,7 @@ var okCancelEvents = function (selector, callbacks) {
 
 
 Template.home.greeting = function () {
+ 	
  	return "Welcome to futureference.";
 };
 
@@ -54,7 +55,11 @@ Template.home.userQuotes = function() {
 };
 
 Template.userPage.userName = function() {
+<<<<<<< HEAD
 var username = Meteor.users.findOne({_id: Session.get("currentPage")}).username;
+=======
+var username =Meteor.users.findOne({_id: Session.get("currentPage")}).username;
+>>>>>>> hoverness
 return username;
 	//eventually return the Session variable that has the page stored
 };
@@ -114,6 +119,10 @@ Template.quote.events({
 	},
 	'click input.btnFavorite': function(){
 		Meteor.call("addToFavs", this);
+<<<<<<< HEAD
+=======
+		this.unbind("btnFavorite");
+>>>>>>> hoverness
 
 	}
 });
