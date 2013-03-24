@@ -52,9 +52,15 @@ if (Meteor.isServer) {
 		 },
 		 topQuotes:function(){
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
-		 	return topQuotes; 
-				
+		 	return topQuotes; 	
+		 },
+		 checkFriend:function(_userId, _friend){
+		 	var friend1 = Meteor.users.findOne({$and: [{_id: _friendId},{friendsList: _userId}]});
+		 	var friend2 = Meteor.users.findOne({$and: [{_id: _userId},{firendsList: _friendId}]});
+		 	if (friend1 != null && friend2 != null)
+		 		return true;
+		 	else
+		 		return false;
 		 }
-		
 	});
 }

@@ -85,7 +85,7 @@ Template.userPage.user = function() {
 	//eventually it should be tied to a Session variable like
 	//Session.get("currentPage", userId);
 	return Quotes.find({owner: Session.get("currentPage")});
-}
+};	
 
 Template.main.events({
 	'click input.btnHome':function(){
