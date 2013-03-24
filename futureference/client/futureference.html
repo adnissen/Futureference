@@ -35,7 +35,15 @@
   <br>
   </div>
 </div>
+  {{#if loggedIn}}
   {{> userSearch}}
+  {{else}}
+  <div class="row">
+  	<div class="span6 offset3">
+  	<p>In order to view quotes and use the site, you must log in above!</p>
+  	</div>
+  </div>
+  {{/if}}
   <br>
   <br>
   <br>

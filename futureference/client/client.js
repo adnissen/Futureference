@@ -48,8 +48,8 @@ Template.main.currentPage = function() {
 	return Session.get("currentPage");
 }
 
-Template.home.userQuotes = function() {
- 	return Quotes.find({owner: Meteor.userId()});
+Template.home.loggedIn = function() {
+	return Meteor.userId();
 };
 
 Template.userPage.userName = function() {
