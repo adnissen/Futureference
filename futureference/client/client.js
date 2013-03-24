@@ -50,7 +50,6 @@ Template.main.currentPage = function() {
 }
 
 Template.home.userQuotes = function() {
-
  	return Quotes.find({owner: Meteor.userId()});
 };
 
@@ -90,6 +89,10 @@ Template.quote.isFaved = function() {
 		}
 	}
 	return false;
+};
+
+Template.quote.rendered = function() {
+	$('.quotes').tooltip();
 };
 
 Template.home.loggedIn = function() {
