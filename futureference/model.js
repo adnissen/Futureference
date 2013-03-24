@@ -83,7 +83,8 @@ if (Meteor.isServer) {
 		 	else
 		 	{
 		 		console.log("are not friends");
-		 		return false;
+		 		result.friendId = friend2._id;
+		 		return result;
 		 	}
 		 }
 	});
