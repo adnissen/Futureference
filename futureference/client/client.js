@@ -123,7 +123,7 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 	ok: function(text, evt){
 		//this needs to only work if the email is on their friends list
 		//but it can wait I suppose
-		Meteor.call("checkFriend", Meteor.userId(), text, function(err, data){
+		/*Meteor.call("checkFriend", Meteor.userId(), text, function(err, data){
 			if (err)
 			{
 				console.log(err);
@@ -137,7 +137,8 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 					Session.set("currentPage", data.friendId);
 				evt.target.value = "";
 			}
-		});
+		});*/
+		Session.set("currentPage", text);
 	}
 }));
 
