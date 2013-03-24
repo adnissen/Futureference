@@ -79,6 +79,20 @@ Template.quote.isOwner = function() {
 	//we return if they're the owner, so they can delete the quotes
 	return Meteor.userId() == this.owner;
 };
+Template.quote.isFaved = function() {
+	//we return if they're the owner, so they can delete the quotes
+	var userFaved = Meteor.users.findOne({_id: Meteor.userId()});
+	var favArray = [];
+	favArray = this.favsList;
+	for (var i = 0; i < favArray.length(); i++){
+		if (favArray[i] = this._id){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+};
 
 Template.home.loggedIn = function() {
 	return Meteor.userId();
@@ -115,6 +129,10 @@ Template.quote.events({
 	},
 	'click input.btnFavorite': function(){
 		Meteor.call("addToFavs", this);
+
+	},
+	'click input.btnUnFav': function(){
+		Meteor.call("removeFavs", this);
 
 	}
 });

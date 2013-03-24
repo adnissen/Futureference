@@ -29,7 +29,18 @@ if (Meteor.isServer) {
 			 Meteor.users.update({_id: _userId}, {$push: {favsList: _quoteId}})
 		 	
 		 },
-		
+		removeFavs:function(quote)
+		 {
+		 	var _userId = Meteor.userId();
+		 	var _quoteId = quote._id;
+			 var newTotal = quote.totalLiked;
+			 console.log(quote.totalLiked);
+			 newTotal--;
+			 Quotes.update({_id: _quoteId}, {$set: {totalLiked: newTotal}});
+
+			 Meteor.users.remove({_id: _userId}, {$push: {favsList: _quoteId}})
+		 	
+		 },
 
 		 //quote related methods
 		 addQuote:function(_userId, _quote)
@@ -50,41 +61,11 @@ if (Meteor.isServer) {
 
 		 },
 		 topQuotes:function(){
-		 	console.log('fuck 2');
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
-		 	console.log('fuck');
 		 	console.log(topQuotes);
 		 	return topQuotes; 
-			return topQuotes; 	
-		 },
-		 getIdFromEmail:function(email){
-		 	var obj = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
-		 	console.log(obj._id);
-		 	if (obj != null)
-		 		return obj._id;
-		 	else
-		 		return null;
-		 },
-		 checkFriend:function(_userId, _friendEmail){
-		 	var _friendId = Meteor.call("getIdFromEmail", _friendEmail);
-		 	console.log("friend id: " + _friendId);
-		 	var friend1 = Meteor.users.findOne({$and: [{_id: _friendId},{friendsList: _userId}]});
-		 	console.log(friend1);
-		 	var friend2 = Meteor.users.findOne({$and: [{_id: _userId},{friendsList: _friendId}]});
-		 	console.log(friend2);
-
-		 	var result = {};
-		 	if (friend1 != null && friend2 != null)
-		 	{
-		 		console.log("are friends");
-		 		result.friendId = friend2._id;
-		 		return result;
-		 	}
-		 	else
-		 	{
-		 		console.log("are not friends");
-		 		return false;
-		 	}
+				
 		 }
+		
 	});
 }
