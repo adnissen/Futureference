@@ -54,13 +54,34 @@ if (Meteor.isServer) {
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
 		 	return topQuotes; 	
 		 },
-		 checkFriend:function(_userId, _friend){
-		 	var friend1 = Meteor.users.findOne({$and: [{_id: _friendId},{friendsList: _userId}]});
-		 	var friend2 = Meteor.users.findOne({$and: [{_id: _userId},{firendsList: _friendId}]});
-		 	if (friend1 != null && friend2 != null)
-		 		return true;
+		 getIdFromEmail:function(email){
+		 	var obj = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
+		 	console.log(obj._id);
+		 	if (obj != null)
+		 		return obj._id;
 		 	else
+		 		return null;
+		 },
+		 checkFriend:function(_userId, _friendEmail){
+		 	var _friendId = Meteor.call("getIdFromEmail", _friendEmail);
+		 	console.log("friend id: " + _friendId);
+		 	var friend1 = Meteor.users.findOne({$and: [{_id: _friendId},{friendsList: _userId}]});
+		 	console.log(friend1);
+		 	var friend2 = Meteor.users.findOne({$and: [{_id: _userId},{friendsList: _friendId}]});
+		 	console.log(friend2);
+
+		 	var result = {};
+		 	if (friend1 != null && friend2 != null)
+		 	{
+		 		console.log("are friends");
+		 		result.friendId = friend2._id;
+		 		return result;
+		 	}
+		 	else
+		 	{
+		 		console.log("are not friends");
 		 		return false;
+		 	}
 		 }
 	});
 }
