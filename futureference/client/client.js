@@ -50,7 +50,6 @@ Template.main.currentPage = function() {
 }
 
 Template.home.userQuotes = function() {
-
  	return Quotes.find({owner: Meteor.userId()});
 };
 
@@ -78,6 +77,10 @@ Template.quote.selectedQuote = function() {
 Template.quote.isOwner = function() {
 	//we return if they're the owner, so they can delete the quotes
 	return Meteor.userId() == this.owner;
+};
+
+Template.quote.rendered = function() {
+	$('.quotes').tooltip();
 };
 
 Template.home.loggedIn = function() {
