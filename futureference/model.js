@@ -64,10 +64,7 @@ if (Meteor.isServer) {
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
 		 	console.log(topQuotes);
 		 	return topQuotes; 
-<<<<<<< HEAD
-				
-=======
-			return topQuotes; 	
+
 		 },
 		 getIdFromEmail:function(email){
 		 	var obj = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
@@ -98,7 +95,7 @@ if (Meteor.isServer) {
 		 		result.friendId = friend2._id;
 		 		return result;
 		 	}
->>>>>>> master
+
 		 }
 		
 	});
