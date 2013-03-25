@@ -38,7 +38,7 @@ if (Meteor.isServer) {
 			 newTotal--;
 			 Quotes.update({_id: _quoteId}, {$set: {totalLiked: newTotal}});
 
-			 Meteor.users.remove({_id: _userId}, {$push: {favsList: _quoteId}})
+			 Meteor.users.update({_id: _userId}, {$pull: {favsList: _quoteId}})
 		 	
 		 },
 

@@ -81,6 +81,7 @@ Template.quote.isOwner = function() {
 Template.quote.isFaved = function() {
     //we return if they're the owner, so they can delete the quotes
     var favArray = Meteor.users.findOne({_id: Meteor.userId()}).favsList
+ if (favArray != null){
     if (favArray.length > 0 ){
         for (var i = 0; i < favArray.length; i++){
             if (favArray[i] == this._id){
@@ -88,6 +89,7 @@ Template.quote.isFaved = function() {
             }
         }
     }
+}
     return false;
 };
 
@@ -129,10 +131,12 @@ Template.quote.events({
 		Meteor.call("deleteQuote", Meteor.userId(), this._id);
 	},
 	'click input.btnFavorite': function(){
+		
 		Meteor.call("addToFavs", this);
 
 	},
 	'click input.btnUnFav': function(){
+		
 		Meteor.call("removeFavs", this);
 
 	}
