@@ -1,5 +1,4 @@
 Template.home.greeting = function () {
- 	
  	return "Welcome to futureference.";
 };
 

@@ -21,16 +21,16 @@ Template.quote.isOwner = function() {
 };
 Template.quote.isFaved = function() {
     //we return if they're the owner, so they can delete the quotes
-    var favArray = Meteor.users.findOne({_id: Meteor.userId()}).favsList
- if (favArray != null){
-    if (favArray.length > 0 ){
-        for (var i = 0; i < favArray.length; i++){
-            if (favArray[i] == this._id){
-                return true;
-            }
-        }
-    }
-}
+    var favArray = Meteor.users.findOne({_id: Meteor.userId()}).favsList;
+	 if (favArray != null){
+	    if (favArray.length > 0 ){
+	        for (var i = 0; i < favArray.length; i++){
+	            if (favArray[i] == this._id){
+	                return true;
+	            }
+	        }
+	    }
+	}
     return false;
 };
 

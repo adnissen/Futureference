@@ -96,6 +96,23 @@ if (Meteor.isServer) {
 		 		return result;
 		 	}
 
+		 },
+		 convertFavesToQuotes:function(_userId)
+		 {
+		 	var idList = Meteor.users.findOne({_id: Meteor.userId()}).favsList;
+		 	var quoteList = idList;
+		 	if (idList != null)
+		 	{
+		 		if (idList.length > 0)
+		 		{
+		 			for (var i = idList.length - 1; i >= 0; i--) {
+		 				quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
+		 			}
+		 			console.log(quoteList);
+		 			return quoteList;
+		 		}
+		 	}
+		 	return "Error";
 		 }
 		
 	});
