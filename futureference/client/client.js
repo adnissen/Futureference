@@ -118,7 +118,7 @@ Template.nav.loggedIn = function() {
 	return Meteor.userId();
 };
 
-Template.main.events({
+Template.nav.events({
 	'click input.btnMyPage':function(){
 		Session.set("currentPage", Meteor.userId());
 	}
