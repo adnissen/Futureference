@@ -11,6 +11,16 @@
   {{> main}}
 </body>
 
+<template name="nav">
+<div class="row">
+  	<div class="span6 offset3">
+  		{{#if loggedIn}}
+  		<input type="button" value="My Page" class="btnMyPage btn"/>
+  		{{/if}}
+  	</div>
+</div>
+</template>
+
 <template name="main">
   {{! it would be cool if this button was evenutally a logo or something}}
   <div class="row">

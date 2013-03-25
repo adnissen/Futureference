@@ -114,6 +114,16 @@ Template.userPage.user = function() {
 	return Quotes.find({owner: Session.get("currentPage")});
 };
 
+Template.nav.loggedIn = function() {
+	return Meteor.userId();
+};
+
+Template.main.events({
+	'click input.btnMyPage':function(){
+		Session.set("currentPage", Meteor.userId());
+	}
+});
+
 Template.main.events({
 	'click input.btnHome':function(){
 		Session.set("currentPage", 0);
