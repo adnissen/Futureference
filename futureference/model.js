@@ -104,6 +104,7 @@ if (Meteor.isServer) {
 		 {
 		 	var idList = Meteor.users.findOne({_id: Meteor.userId()}).favsList;
 		 	var quoteList = idList;
+		 	var result = {};
 		 	if (idList != null)
 		 	{
 		 		if (idList.length > 0)
@@ -112,7 +113,8 @@ if (Meteor.isServer) {
 		 				quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
 		 			}
 		 			console.log(quoteList);
-		 			return quoteList;
+		 			result.favList = quoteList;
+		 			return result;
 		 		}
 		 	}
 		 	return "Error";
