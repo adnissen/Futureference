@@ -7,4 +7,3 @@ Template.nav.events({
 		Session.set("currentPage", Meteor.userId());
 	}
 });
-
