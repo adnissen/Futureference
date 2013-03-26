@@ -10,8 +10,20 @@ Template.home.loggedIn = function() {
 	return Meteor.userId();
 };
 
-Template.home.quote = function() { 
+Template.home.quotes = function() { 
 	//this is the main page, so it just shows the quotes 
 	//of the logged in user
- 	return Quotes.find({owner: Meteor.userId()});
+ 	Meteor.call("convertFavesToQuotes", Meteor.userId(), function(err, data){
+ 		if (err)
+ 			console.log(err);
+ 		if (data)
+ 		{
+	 		console.log(data.list);
+	 		for (var i = 0; i < data.list.length; i++) {
+	 			console.log(data.list[i].quote);
+	 		};
+	 		console.log(data);
+	 		return data;
+ 		}
+ 	});
 };

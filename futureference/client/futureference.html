@@ -46,6 +46,13 @@
   </div>
 </div>
   {{#if loggedIn}}
+  <div class="row">
+  <div class="span6 offset3">
+  {{#each quotes.list}}
+  <p>{{quote}}</p>
+  {{/each}}
+  </div>
+  </div>
   {{> userSearch}}
   {{else}}
   <div class="row">

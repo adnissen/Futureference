@@ -47,10 +47,7 @@ if (Meteor.isServer) {
 		 {
 		 	// they can't add quotes to itself
 		 	if (_userId != Meteor.userId())
-		 		var time = new Date().getTime();
-		 		Quotes.insert({quote: _quote, owner: _userId, totalLiked: 0, timestamp: time});
-
-
+		 		Quotes.insert({quote: _quote, owner: _userId, totalLiked: 0});
 		 },
 		 deleteQuote:function(_userId, _quote){
 		 	if (_userId == Meteor.userId()){ // only remove own quotes
@@ -110,10 +107,11 @@ if (Meteor.isServer) {
 		 		if (idList.length > 0)
 		 		{
 		 			for (var i = idList.length - 1; i >= 0; i--) {
-		 				quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
+		 				quoteList[i] = {'quote' : Quotes.findOne({_id:idList[i]}).quote};
 		 			}
 		 			console.log(quoteList);
-		 			result.favList = quoteList;
+		 			result.list = quoteList;
+		 			result.name = "quotes";
 		 			return result;
 		 		}
 		 	}
