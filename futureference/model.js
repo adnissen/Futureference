@@ -112,6 +112,7 @@ if (Meteor.isServer) {
 		 			console.log(quoteList);
 		 			result.list = quoteList;
 		 			result.name = "quotes";
+		 			result.test = "h1";
 		 			return result;
 		 		}
 		 	}

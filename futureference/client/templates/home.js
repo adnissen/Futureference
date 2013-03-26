@@ -13,17 +13,9 @@ Template.home.loggedIn = function() {
 Template.home.quotes = function() { 
 	//this is the main page, so it just shows the quotes 
 	//of the logged in user
- 	Meteor.call("convertFavesToQuotes", Meteor.userId(), function(err, data){
- 		if (err)
- 			console.log(err);
- 		if (data)
- 		{
-	 		console.log(data.list);
-	 		for (var i = 0; i < data.list.length; i++) {
-	 			console.log(data.list[i].quote);
-	 		};
-	 		console.log(data);
-	 		return data;
- 		}
- 	});
+	var homeuser = Meteor.users.findOne({_id: Meteor.userId()});
+	if (homeuser && homeuser.favsList)
+ 		return homeuser.favsList;
+ 	else
+ 		return [];
 };
