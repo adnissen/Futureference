@@ -46,14 +46,16 @@
   </div>
 </div>
   {{#if loggedIn}}
+  
+  {{> userSearch}}
   <div class="row">
   <div class="span6 offset3">
+  <h3>Favorite Quotes:</h3>
   {{#each quotes}}
-  {{this}}<br>
+  {{this}}<br><br>
   {{/each}}
   </div>
   </div>
-  {{> userSearch}}
   {{else}}
   <div class="row">
   	<div class="span6 offset3">

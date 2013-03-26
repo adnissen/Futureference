@@ -107,13 +107,11 @@ if (Meteor.isServer) {
 		 		if (idList.length > 0)
 		 		{
 		 			for (var i = idList.length - 1; i >= 0; i--) {
-		 				quoteList[i] = {'quote' : Quotes.findOne({_id:idList[i]}).quote};
+		 				quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
 		 			}
 		 			console.log(quoteList);
 		 			result.list = quoteList;
-		 			result.name = "quotes";
-		 			result.test = "h1";
-		 			return result;
+		 			return quoteList;
 		 		}
 		 	}
 		 	return "Error";
