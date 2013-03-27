@@ -13,7 +13,10 @@
   {{> main}}
 </body>
 <template name"alerts">
-
+<div class="alert {{type}}">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{strongtext}}</strong> {{content}}
+</div>
 </template>
 <template name="nav">
 <div class="row">
