@@ -3,7 +3,5 @@ Template.main.currentPage = function() {
 };
 
 Template.main.events({
-	'click input.btnHome':function(){
-		Session.set("currentPage", 0);
-	}
+
 });

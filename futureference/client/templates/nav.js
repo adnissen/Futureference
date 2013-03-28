@@ -5,5 +5,8 @@ Template.nav.loggedIn = function() {
 Template.nav.events({
 	'click input.btnMyPage':function(){
 		Session.set("currentPage", Meteor.userId());
+	},
+		'click input.btnHome':function(){
+		Session.set("currentPage", 0);
 	}
 });
