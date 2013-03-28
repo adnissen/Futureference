@@ -1,11 +1,12 @@
 <head>
   <title>futureference</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 <div class="container">
 <div class="row">
-	<div class="span6 offset4">
+	<div class="span6 offset3">
   {{> alerts}}
    </div>
 </div>
@@ -27,7 +28,7 @@
   		{{loginButtons}}
   		{{#if loggedIn}}
   		<input type="button" value="My Page" class="btnMyPage btn btn-link"/>
-  		  	<input type="button" value="Home" class="btnHome btn btn-link"/>
+  		<input type="button" value="Home" class="btnHome btn btn-link"/>
   		{{/if}}
   	</div>
 </div>
@@ -69,7 +70,7 @@
 
   {{else}}
   <div class="row">
-  	<div class="span6 offset3">
+  	<div class="span6 offset4">
   	<p>In order to view quotes and use the site, you must log in above!</p>
   	</div>
   </div>
@@ -85,17 +86,17 @@
 
 <template name="userPage">
 <div class="row">
-	<div class="span6 offset3">
+	<div class="span6 offset4">
 		<h1>{{userName}}</h1>
 	</div>
 </div>
 <div class="row">
-	<div class="span6 offset3">
+	<div class="span6 offset4">
 		<input type="text" id="txtAddQuote" placeholder="So fickle is the heart..."/>
 	</div>
 </div>
 <div class="row">
-	<div class="span6 offset3">
+	<div class="span6 offset4">
 		{{#each user}}
     {{>quote}}
 		{{/each}}
