@@ -1,4 +1,4 @@
-Template.alerts.type = function(){
+Template.alerts.active = function(){
 	return Session.get("alertActive");
 };
 
@@ -6,11 +6,11 @@ Template.alerts.type = function() {
 	return Session.get("alertType");
 };
 
-Template.alerts.type = function(){
+Template.alerts.strongtext = function(){
 	return Session.get("alertStrongText");
 };
 
-Template.alerts.type = function(){
+Template.alerts.content = function(){
 	return Session.get("alertContent");
 }
 

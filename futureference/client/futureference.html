@@ -13,10 +13,12 @@
   {{> main}}
 </body>
 <template name="alerts">
+{{#if active}}
 <div class="alert {{type}}">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <strong>{{strongtext}}</strong> {{content}}
 </div>
+{{/if}}
 </template>
 <template name="nav">
 <div class="row">
