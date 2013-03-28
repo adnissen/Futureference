@@ -3,14 +3,15 @@
 </head>
 
 <body>
+<div class="container">
 <div class="row">
-	<div class="span6 offset3">
+	<div class="span6 offset4">
   {{> alerts}}
-  {{loginButtons}}
    </div>
 </div>
   {{> nav}}
   {{> main}}
+ </div>
 </body>
 <template name="alerts">
 {{#if active}}
@@ -22,9 +23,11 @@
 </template>
 <template name="nav">
 <div class="row">
-  	<div class="span6 offset3">
+  	<div class="span6 offset4">
+  		{{loginButtons}}
   		{{#if loggedIn}}
-  		<input type="button" value="My Page" class="btnMyPage btn"/>
+  		<input type="button" value="My Page" class="btnMyPage btn btn-link"/>
+  		  	<input type="button" value="Home" class="btnHome btn btn-link"/>
   		{{/if}}
   	</div>
 </div>
@@ -32,11 +35,6 @@
 
 <template name="main">
   {{! it would be cool if this button was evenutally a logo or something}}
-  <div class="row">
-  	<div class="span6 offset3">
-  	<input type="button" value="home" class="btnHome btn"/>
-  </div>
-</div>
   {{#if currentPage}}
   {{> userPage}}
   {{else}}
@@ -46,24 +44,29 @@
 
 <template name="home">
   <div class="row">
-  	<div class="span6 offset3">
-  <h1>Hello World!</h1>
-  {{greeting}}
+  	<div class="span6 offset4">
+  <h1>Futureference</h1>
   <br>
   <br>
+  	</div>
   </div>
-</div>
   {{#if loggedIn}}
-  
-  {{> userSearch}}
   <div class="row">
-  <div class="span6 offset3">
+  <div class="span4">
   <h3>Favorite Quotes:</h3>
   {{#each quotes}}
   {{this}}<br><br>
   {{/each}}
   </div>
+  <div class="span4">
+  	<br>
+  {{> userSearch}}
   </div>
+  <div class="span4">
+  	<h3>Top Quotes:</h3>
+  </div>
+  </div>
+
   {{else}}
   <div class="row">
   	<div class="span6 offset3">
@@ -77,11 +80,7 @@
 </template>
 
 <template name="userSearch">
-<div class="row">
-	<div class="span6 offset3">
 	<input type="text" id="txtFriendSearch" placeholder="Type in a friend's Email!"/>
-	</div>
-</div>
 </template>
 
 <template name="userPage">
