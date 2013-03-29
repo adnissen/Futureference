@@ -1,5 +1,5 @@
 Meteor.publish("directory", function() {
-	return Meteor.users.find({friendsList: this.userId});
+	return Meteor.users.find({$or: [{friendsList: this.userId}, {_id: this.userId}]});
 });
 
 Meteor.publish("quotes", function() {

@@ -124,7 +124,6 @@ if (Meteor.isServer) {
 		 			for (var i = idList.length - 1; i >= 0; i--) {
 		 				quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
 		 			}
-		 			console.log(quoteList);
 		 			result.list = quoteList;
 		 			return quoteList;
 		 		}
