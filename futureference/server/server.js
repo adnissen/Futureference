@@ -5,7 +5,15 @@ Meteor.publish("directory", function() {
 Meteor.publish("quotes", function() {
 	//right now it only returns "public" quotes
 	//it should eventually search through a friendslist and return those
-	return Quotes.find({});
+	var friends = Meteor.users.find({$or: [{friendsList: this.userId}, {_id: this.userId}]}).fetch();
+	console.log(friends);
+	var friendArray = friends;
+	for (var i = 0; i < friends.length; i++) {
+		friendArray[i] = friends[i]._id;
+	};
+	console.log(friendArray);
+	console.log(Quotes.find({owner: friendArray}));
+	return Quotes.find({owner: {$in: friendArray}});
 });
 
 Meteor.startup(function() {
