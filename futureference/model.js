@@ -74,6 +74,13 @@ if (Meteor.isServer) {
 		 	else
 		 		return null;
 		 },
+		 getUsername:function(id){
+		 	var user = Meteor.users.findOne({_id: id});
+		 	if (user)
+		 		return user.username;
+		 	else
+		 		return "no user";
+		 },
 		 checkFriend:function(_userId, _friendEmail){
 		 	var _friendId = Meteor.call("getIdFromEmail", _friendEmail);
 		 	console.log("friend id: " + _friendId);
@@ -97,12 +104,20 @@ if (Meteor.isServer) {
 		 	}
 
 		 },
+		 userSearch:function(_email)
+		 {
+		 	var user = Meteor.users.findOne({emails: {$elemMatch: {address: _email}}});
+		 	if (user)
+		 		return user._id;
+		 	else
+		 		return 0;
+		 },
 		 convertFavesToQuotes:function(_userId)
 		 {
 		 	var idList = Meteor.users.findOne({_id: Meteor.userId()}).favsList;
 		 	var quoteList = idList;
 		 	var result = {};
-		 	if (idList != null)
+		 	if (idList)
 		 	{
 		 		if (idList.length > 0)
 		 		{
@@ -114,7 +129,7 @@ if (Meteor.isServer) {
 		 			return quoteList;
 		 		}
 		 	}
-		 	return "Error";
+		 	return ['No Favorites to Display'];
 		 }
 		
 	});

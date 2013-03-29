@@ -1,6 +1,8 @@
 Template.userPage.userName = function() {
-	var username = Meteor.users.findOne({_id: Session.get("currentPage")}).username;
-	return username;
+	Meteor.call("getUsername", Session.get("currentPage"),function(error, data){
+		Session.set("pageUsername", data);
+	});
+	return Session.get("pageUsername");
 	//eventually return the Session variable that has the page stored
 };
 

@@ -17,6 +17,11 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 				evt.target.value = "";
 			}
 		});*/
-		Session.set("currentPage", Meteor.users.findOne({emails: {$elemMatch: {address: text}}})._id);
+		Meteor.call("userSearch", text, function(error, data){
+			console.log(data);
+			if (data)
+				Session.set("currentPage", data);
+		});
+		Session.set("currentPage", 0);
 	}
 }));
