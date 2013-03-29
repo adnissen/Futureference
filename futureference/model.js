@@ -11,6 +11,12 @@ Quotes.allow({
 	}
 });
 
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
 if (Meteor.isServer) {
 	Meteor.methods({
 		/* put all your sweet new methods here
@@ -122,7 +128,10 @@ if (Meteor.isServer) {
 		 		if (idList.length > 0)
 		 		{
 		 			for (var i = idList.length - 1; i >= 0; i--) {
-		 				quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
+		 				if (Quotes.findOne({_id:idList[i]}))
+		 					quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
+		 				else
+		 					quoteList.remove(i);
 		 			}
 		 			result.list = quoteList;
 		 			return quoteList;
