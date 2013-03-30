@@ -1,5 +1,5 @@
 Meteor.subscribe("directory");
-Meteor.subscribe("quotes");
+var subscription = Meteor.subscribe("quotes")
 
 Session.setDefault("currentPage", 0);
 Session.setDefault("requests", 0);

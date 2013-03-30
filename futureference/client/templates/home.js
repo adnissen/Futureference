@@ -42,9 +42,6 @@ Template.home.events({
 			console.log(data);
 			Meteor.call("addFriend", Meteor.userId(), data);
 		});
-		
-		//remove it from the requests list
-		//var emails = Session.get("requests");
 	}
 });
 

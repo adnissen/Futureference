@@ -22,6 +22,8 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 			if (data)
 				Session.set("currentPage", data);
 		});
+		subscription.stop();
+		subscription = Meteor.subscribe("quotes")
 		Session.set("currentPage", 0);
 	}
 }));
