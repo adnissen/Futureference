@@ -10,6 +10,30 @@ Template.home.loggedIn = function() {
 	return Meteor.userId();
 };
 
+Template.home.request = function(){
+	var list = new Array();
+	var emails = new Array();
+	if (Meteor.userId())
+	{
+		var user = Meteor.user();
+		if (user && user.fReceived)
+		{
+			for (var i = 0; i < user.fReceived.length; i++) {
+				list[i] = user.fReceived[i];
+				Meteor.call("getEmailFromId", list[i], function(err, data){
+					emails.push(data);
+					Session.set("requests", emails);
+				});
+			}
+			//Session.set("requests", list);
+		}
+	}
+	if (Session.get("requests"))
+		return Session.get("requests");
+	else
+		return ["No Friend Requests"];
+};
+
 Template.home.quotes = function() { 
 	//I think this should probably go in the Template.home.created area, so it only runs once
 	//after all, we are just storing the favorites in a session variable

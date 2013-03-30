@@ -86,6 +86,10 @@ if (Meteor.isServer) {
 			//now add it to the other
 			Meteor.users.update({_id: _newFriendId}, {$push: {friendsList: _userId}});
 
+			//remove it from everything
+			Meteor.users.update({_id: _userId}, {$pull: {fReceived: _newFriendId}});
+			Meteor.users.update({_id: _newFriendId}, {$pull: {fSent: _userId}});
+
 			//return true so that isFriend can update the page
 			return true;
 		 },
@@ -100,6 +104,13 @@ if (Meteor.isServer) {
 		 	console.log(obj._id);
 		 	if (obj != null)
 		 		return obj._id;
+		 	else
+		 		return null;
+		 },
+		 getEmailFromId:function(id){
+		 	var obj = Meteor.users.findOne({_id: id});
+		 	if (obj)
+		 		return obj.emails[0].address;
 		 	else
 		 		return null;
 		 },
