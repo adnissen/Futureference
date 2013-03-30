@@ -59,11 +59,29 @@ if (Meteor.isServer) {
 		 	if (_userId == Meteor.userId()){ // only remove own quotes
 		 		Quotes.remove({_id: _quote});
 		 		}
-		 	},	
-		 addFriend:function(_userId, friendEmail){
-		 	var friendId = Meteor.users.findOne({emails: {$elemMatch: {address: friendEmail}}})._id;
+		 },	
+		 sendFRequest: function(_senderId, _receivingId){
+		 	//add it to the sent list
+		 	Meteor.users.update({_id: _senderId}, {$push: {fSent: _receivingId}});
 
-			Meteor.users.update({_id: _userId}, {$push: {friendsList: friendId}});
+		 	//add it to the received list
+		 	Meteor.users.update({_id: _receivingId}, {$push: {fReceived: _senderId}});
+		 },
+		 ignoreFrequest: function(_userId, _ignoreId){
+		 	//remove the id from the received and waiting for response list
+		 	Meteor.users.update({_id: _userId}, {$pull: {fReceived: _ignoreId}});
+		 	//then add it to the ignored list
+		 	Meteor.users.update({_id: _userId}, {$push: {fIgnored: _ignoreId}});
+
+		 	//this is all we have to do here. It'll still show up as "sent" for the person who sent it
+		 	//but it won't bother the person who ignored it
+		 },
+		 addFriend:function(_userId, _newFriendId){
+		 	//add it to the first one
+			Meteor.users.update({_id: _userId}, {$push: {friendsList: _newFriendId}});
+
+			//now add it to the other
+			Meteor.users.update({_id: _newFriendId}, {$push: {friendsList: _userId}});
 
 		 },
 		 topQuotes:function(){
