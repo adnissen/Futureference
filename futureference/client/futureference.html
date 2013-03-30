@@ -73,9 +73,13 @@
   {{> userSearch}}
   <br>
   <br>
+  {{#if requests}}
   {{#each request}}
   {{this}}<br>
+  <input type="button" value="Accept" id="{{this}}" class="btnAcceptFriend btn btn-link"/>
+  <br>
   {{/each}}
+  {{/if}}
   </div>
   <div class="span4">
   	<h3>Recent Quotes:</h3>

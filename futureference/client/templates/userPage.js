@@ -7,13 +7,24 @@ Template.userPage.userName = function() {
 };
 
 Template.userPage.sent = function(){
-	var sentList = Meteor.user().fSent;
-	if (sentList)
+	if (Meteor.user())
 	{
-		for (var i = 0; i < sentList.length; i++) {
-			if (sentList[i] == Session.get("currentPage"))
-				Session.set("fSent", true);
-		};
+		var sentList = Meteor.user().fSent;
+		if (sentList)
+		{
+			for (var i = 0; i < sentList.length; i++) {
+				if (sentList[i] == Session.get("currentPage"))
+					Session.set("fSent", true);
+			};
+		}
+		var receivedList = Meteor.user().fReceived;
+		if (receivedList)
+		{
+			for (var i = 0; i < receivedList.length; i++) {
+				if (receivedList[i] == Session.get("currentPage"))
+					Session.set("fSent", true);
+			};
+		}
 	}
 	return Session.get("fSent");
 };

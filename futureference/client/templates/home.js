@@ -16,7 +16,7 @@ Template.home.request = function(){
 	if (Meteor.userId())
 	{
 		var user = Meteor.user();
-		if (user && user.fReceived)
+		if (user && user.fReceived && user.fReceived.length > 0)
 		{
 			for (var i = 0; i < user.fReceived.length; i++) {
 				list[i] = user.fReceived[i];
@@ -33,6 +33,28 @@ Template.home.request = function(){
 	else
 		return ["No Friend Requests"];
 };
+
+Template.home.events({
+	'click input.btnAcceptFriend':function(){
+		//call addfriend
+		console.log(this.toString());
+		Meteor.call("getIdFromEmail", this.toString(), function(err, data){
+			console.log(data);
+			Meteor.call("addFriend", Meteor.userId(), data);
+		});
+		
+		//remove it from the requests list
+		//var emails = Session.get("requests");
+	}
+});
+
+Template.home.requests = function() {
+	var user = Meteor.user();
+	if (user && user.fReceived)
+		return user.fReceived.length;
+	else
+		return false;
+}
 
 Template.home.quotes = function() { 
 	//I think this should probably go in the Template.home.created area, so it only runs once
