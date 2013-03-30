@@ -100,7 +100,11 @@
 		{{#if friends}}
 		friends
 		{{else}}
-		not friends
+		{{#if sent}}
+		request sent
+		{{else}}
+		<input type="button" value="Add Friend" class="btnAddFriend btn btn-link"/>
+		{{/if}}
 		{{/if}}
 	</div>
 </div>

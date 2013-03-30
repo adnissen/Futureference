@@ -6,6 +6,18 @@ Template.userPage.userName = function() {
 	//eventually return the Session variable that has the page stored
 };
 
+Template.userPage.sent = function(){
+	var sentList = Meteor.user().fSent;
+	if (sentList)
+	{
+		for (var i = 0; i < sentList.length; i++) {
+			if (sentList[i] == Session.get("currentPage"))
+				Session.set("fSent", true);
+		};
+	}
+	return Session.get("fSent");
+};
+
 Template.userPage.friends = function(){
 	Meteor.call("checkFriend", Meteor.userId(), Session.get("currentPage"), function(err, data){
 		Session.set("isFriend", data);
@@ -27,3 +39,11 @@ Template.userPage.events(okCancelEvents('#txtAddQuote',{
 		evt.target.value = "";
 	}
 }));
+
+Template.userPage.events({
+	'click input.btnAddFriend': function(){
+	Meteor.call("sendFRequest", Meteor.userId(), Session.get("currentPage"), function(err, data){
+		Session.set("fSent", true);
+	});
+	}
+})

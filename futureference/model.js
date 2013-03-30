@@ -66,6 +66,9 @@ if (Meteor.isServer) {
 
 		 	//add it to the received list
 		 	Meteor.users.update({_id: _receivingId}, {$push: {fReceived: _senderId}});
+
+		 	//return true to update the page
+		 	return true;
 		 },
 		 ignoreFrequest: function(_userId, _ignoreId){
 		 	//remove the id from the received and waiting for response list
@@ -83,6 +86,8 @@ if (Meteor.isServer) {
 			//now add it to the other
 			Meteor.users.update({_id: _newFriendId}, {$push: {friendsList: _userId}});
 
+			//return true so that isFriend can update the page
+			return true;
 		 },
 		 topQuotes:function(){
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
