@@ -6,6 +6,13 @@ Template.userPage.userName = function() {
 	//eventually return the Session variable that has the page stored
 };
 
+Template.userPage.friends = function(){
+	Meteor.call("checkFriend", Meteor.userId(), Session.get("currentPage"), function(err, data){
+		Session.set("isFriend", data);
+	});
+	return Session.get("isFriend");
+};
+
 Template.userPage.user = function() {
 	//this is hardcoded to my test account right now
 	//eventually it should be tied to a Session variable like

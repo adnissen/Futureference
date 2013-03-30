@@ -105,28 +105,21 @@ if (Meteor.isServer) {
 		 	else
 		 		return "no user";
 		 },
-		 checkFriend:function(_userId, _friendEmail){
-		 	var _friendId = Meteor.call("getIdFromEmail", _friendEmail);
-		 	console.log("friend id: " + _friendId);
-		 	var friend1 = Meteor.users.findOne({$and: [{_id: _friendId},{friendsList: _userId}]});
-		 	console.log(friend1);
-		 	var friend2 = Meteor.users.findOne({$and: [{_id: _userId},{friendsList: _friendId}]});
-		 	console.log(friend2);
-
-		 	var result = {};
-		 	if (friend1 != null && friend2 != null)
+		 checkFriend:function(_userId, _friendId){
+		 	if (_userId == _friendId)
+		 		return true;
+		 	var user = Meteor.users.findOne({_id: _userId});
+		 	if (user.friendsList)
 		 	{
-		 		console.log("are friends");
-		 		result.friendId = friend2._id;
-		 		return result;
+			 	var friendsList = user.friendsList;
+			 	for (var i = 0; i < friendsList.length; i++) {
+			 		if (friendsList[i] == _friendId)
+			 		{
+			 			return true;
+			 		}
+			 	}
 		 	}
-		 	else
-		 	{
-		 		console.log("are not friends");
-		 		result.friendId = friend2._id;
-		 		return result;
-		 	}
-
+		 	return false;
 		 },
 		 userSearch:function(_email)
 		 {

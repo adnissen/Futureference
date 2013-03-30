@@ -14,13 +14,16 @@ Template.home.quotes = function() {
 	//I think this should probably go in the Template.home.created area, so it only runs once
 	//after all, we are just storing the favorites in a session variable
 	var list = 0;
-	Meteor.call("convertFavesToQuotes", Meteor.userId, function(err, data){
-		if (data)
-		{
-			list = data;
-			Session.set("favs", list);
-		}
-	});
+	if (Meteor.userId())
+	{
+		Meteor.call("convertFavesToQuotes", Meteor.userId, function(err, data){
+			if (data)
+			{
+				list = data;
+				Session.set("favs", list);
+			}
+		});
+	}
 
 	//so the first time the code gets here the above call will not have returned
 	//that's because the server is obviously slower than the client

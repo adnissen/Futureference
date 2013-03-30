@@ -97,18 +97,27 @@
 <div class="row text-center">
 	<div class="span6 offset3">
 		<h1>{{userName}}</h1>
+		{{#if friends}}
+		friends
+		{{else}}
+		not friends
+		{{/if}}
 	</div>
 </div>
 <div class="row text-center">
 	<div class="span6 offset3">
+		{{#if friends}}
 		<input type="text" id="txtAddQuote" placeholder="So fickle is the heart..."/>
+		{{/if}}
 	</div>
 </div>
 <div class="row text-center">
 	<div class="span6 offset3">
+		{{#if friends}}
 		{{#each user}}
-    {{>quote}}
+    	{{>quote}}
 		{{/each}}
+		{{/if}}
 	</div>
 </div>
 </template>
