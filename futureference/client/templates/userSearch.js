@@ -22,8 +22,10 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 			if (data)
 				Session.set("currentPage", data);
 		});
-		subscription.stop();
-		subscription = Meteor.subscribe("quotes")
+		directorySubscription.stop();
+		directorySubscription = Meteor.subscribe("directory");
+		quotesSubscription.stop();
+		quotesSubscription = Meteor.subscribe("quotes")
 		Session.set("currentPage", 0);
 	}
 }));
