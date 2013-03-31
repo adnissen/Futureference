@@ -56,9 +56,13 @@ Template.home.requests = function() {
 		return user.fReceived.length;
 	else
 		return false;
-}
+};
 
-Template.home.quotes = function() { 
+Template.home.RecentQuotes = function(){
+	return Quotes.find({}, {sort: {timestamp: -1}, limit: 5});
+};
+
+Template.home.FavQuotes = function() { 
 	//I think this should probably go in the Template.home.created area, so it only runs once
 	//after all, we are just storing the favorites in a session variable
 	var list = 0;
