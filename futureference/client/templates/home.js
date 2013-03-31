@@ -42,6 +42,11 @@ Template.home.events({
 			console.log(data);
 			Meteor.call("addFriend", Meteor.userId(), data);
 		});
+	},
+	'click input.btnIgnoreFriend': function(){
+		Meteor.call("getIdFromEmail", this.toString(), function(err, data){
+			Meteor.call("ignoreFrequest", Meteor.userId(), data);
+		});
 	}
 });
 
