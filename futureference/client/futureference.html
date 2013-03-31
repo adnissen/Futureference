@@ -64,9 +64,13 @@
   <div class="row text-center">
   <div class="span4">
   <h3>Favorite Quotes:</h3>
+  {{#if hasFavs}}
   {{#each FavQuotes}}
   "{{this.quote}}" <br>- {{this.owner}}<br><br>
   {{/each}}
+  {{else}}
+  No favorites!	
+  {{/if}}
   </div>
   <div class="span4">
   	<br>
