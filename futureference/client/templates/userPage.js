@@ -6,6 +6,10 @@ Template.userPage.userName = function() {
 	//eventually return the Session variable that has the page stored
 };
 
+Template.userPage.loggedIn = function() {
+	return Meteor.userId();
+};
+
 Template.userPage.sent = function(){
 	if (Meteor.user())
 	{

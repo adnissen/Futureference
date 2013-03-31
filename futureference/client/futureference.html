@@ -107,6 +107,7 @@
 <div class="row text-center">
 	<div class="span6 offset3">
 		<h1>{{userName}}</h1>
+		{{#if loggedIn}}
 		{{#if friends}}
 		friends
 		{{else}}
@@ -114,6 +115,7 @@
 		request sent
 		{{else}}
 		<input type="button" value="Add Friend" class="btnAddFriend btn btn-link"/>
+		{{/if}}
 		{{/if}}
 		{{/if}}
 	</div>
