@@ -97,7 +97,6 @@ if (Meteor.isServer) {
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
 		 	console.log(topQuotes);
 		 	return topQuotes; 
-
 		 },
 		 getIdFromEmail:function(email){
 		 	var obj = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
@@ -149,6 +148,7 @@ if (Meteor.isServer) {
 		 {
 		 	var idList = Meteor.users.findOne({_id: Meteor.userId()}).favsList;
 		 	var quoteList = idList;
+		 	var _quote;
 		 	var result = {};
 		 	if (idList)
 		 	{
@@ -156,7 +156,13 @@ if (Meteor.isServer) {
 		 		{
 		 			for (var i = idList.length - 1; i >= 0; i--) {
 		 				if (Quotes.findOne({_id:idList[i]}))
-		 					quoteList[i] = Quotes.findOne({_id:idList[i]}).quote;
+		 				{
+		 					_quote = Quotes.findOne({_id:idList[i]});
+		 					quoteList[i] = {quote: _quote.quote};
+		 					Meteor.call("getUsername", _quote.owner, function(err, data){
+		 						quoteList[i].owner = data;
+		 					});
+		 				}
 		 				else
 		 					quoteList.remove(i);
 		 			}
