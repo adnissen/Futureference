@@ -147,7 +147,13 @@ if (Meteor.isServer) {
 		 	if (user)
 		 		return user._id;
 		 	else
-		 		return 0;
+		 		{
+		 			user = Meteor.users.findOne({username: _email});
+		 			if (user)
+		 				return user._id;
+		 			else
+		 				return false;
+		 		}
 		 },
 		 convertFavesToQuotes:function(_userId)
 		 {
