@@ -53,7 +53,10 @@ if (Meteor.isServer) {
 		 {
 		 	// they can't add quotes to itself
 		 	if (_userId != Meteor.userId())
-		 		Quotes.insert({quote: _quote, owner: _userId, totalLiked: 0});
+		 	{
+		 		var time = new Date().getTime();
+		 		Quotes.insert({quote: _quote, owner: _userId, totalLiked: 0, timestamp: time});
+		 	}
 		 },
 		 deleteQuote:function(_userId, _quote){
 		 	if (_userId == Meteor.userId()){ // only remove own quotes

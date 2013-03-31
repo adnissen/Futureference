@@ -44,7 +44,7 @@ Template.userPage.user = function() {
 	//this is hardcoded to my test account right now
 	//eventually it should be tied to a Session variable like
 	//Session.get("currentPage", userId);
-	return Quotes.find({owner: Session.get("currentPage")});
+	return Quotes.find({owner: Session.get("currentPage")}, {sort: {timestamp: -1}});
 };
 
 //for the addquote enter key button
