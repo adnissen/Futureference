@@ -7,6 +7,7 @@ Session.setDefault("favs", 0);
 Session.setDefault("pageUsername", 0);
 Session.setDefault("isFriend", 0);
 Session.setDefault("fSent", 0);
+Session.setDefault("friendArray", []);
 
 Accounts.ui.config({
 	passwordSignupFields: 'USERNAME_AND_EMAIL'

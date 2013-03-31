@@ -29,3 +29,23 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 		Session.set("currentPage", 0);
 	}
 }));
+
+Template.userSearch.friendData = function(){
+	if (Meteor.user() && Meteor.user().friendsList)
+	{
+		var friendArray = new Array();
+		for (var i = 0; i < Meteor.user().friendsList.length; i++) {
+			Meteor.call("getUsername", Meteor.user().friendsList[i], function(err, data){
+				friendArray[i - 1] = data;
+				Session.set("friendArray", friendArray);
+			})
+		};
+	}
+	return Session.get("friendArray");
+};
+
+Template.userSearch.rendered = function() {
+
+	$('.txtFriendSearch').typeahead();
+
+};
