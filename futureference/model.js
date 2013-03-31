@@ -55,7 +55,9 @@ if (Meteor.isServer) {
 		 	if (_userId != Meteor.userId())
 		 	{
 		 		var time = new Date().getTime();
-		 		Quotes.insert({quote: _quote, owner: _userId, totalLiked: 0, timestamp: time});
+		 		Meteor.call("getUsername", _userId, function(err, data){
+		 			Quotes.insert({quote: _quote, username: data, owner: _userId, totalLiked: 0, timestamp: time});
+		 		});
 		 	}
 		 },
 		 deleteQuote:function(_userId, _quote){
