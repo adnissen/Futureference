@@ -33,10 +33,11 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 Template.userSearch.friendData = function(){
 	if (Meteor.user() && Meteor.user().friendsList)
 	{
-		var friendArray = new Array();
+		var ary = new Array();
 		for (var i = 0; i < Meteor.user().friendsList.length; i++) {
 			Meteor.call("getUsername", Meteor.user().friendsList[i], function(err, data){
-				friendArray[i - 1] = data;
+				ary.push(data);
+				var friendArray = '"' + ary.join('","') + '"';
 				Session.set("friendArray", friendArray);
 			})
 		};
