@@ -36,15 +36,15 @@
      <div class="navbar">
       <div class="navbar-inner">
   	<div class="span6 offset3">
-  		{{loginButtons}}
-  		{{#if loggedIn}}
-   
+  		
      <a class="brand" href="#">FutuReference</a>
     <ul class="nav">
+    	 {{#if loggedIn}}
       <input type="button" value="Home" class="btnHome btn btn-link"/>
 
   		<input type="button" value="My Page" class="btnMyPage btn btn-link"/>
   		{{/if}}
+  		{{loginButtons}}
       </ul>
 
   	</div>
@@ -63,7 +63,7 @@
 <template name="home">
   <div class="row text-center">
   	<div class="span6 offset3">
-  <h1>Futureference</h1>
+  <img src="logoBig.png">
   <br>
   <br>
   	</div>
