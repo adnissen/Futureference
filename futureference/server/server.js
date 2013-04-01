@@ -1,3 +1,5 @@
+var mongo_url = process.env.MONGOHQ_URL;
+
 Meteor.publish("directory", function() {
 	return Meteor.users.find({$or: [{friendsList: this.userId}, {_id: this.userId}]});
 });
