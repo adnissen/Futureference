@@ -1,7 +1,10 @@
 <head>
   <title>futureference</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+      <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
   <style type="text/css">
   html, body{
   	background-color: #FFFFFF;
@@ -125,7 +128,10 @@
   {{else}}
   <div class="row text-center">
   	<div class="span6 offset3">
-  	<p>In order to view quotes and use the site, you must log in above!</p>
+  	<p>Did one of your friends just say something funny, stupid, or both? Now you can immortalize it on the internet forever! Getting started is easy! Simply login or create a new account below, add each-other as friends, and start adding quotes! It's really that easy. Never forget that hilarious or insightful line again.</p>
+
+	<p>Nobody will be able to see your quotes unless you accept them as a friend. Your moments of weakness are safe with us.</p>
+  	<p class="text-warning">Warning! This site requires Internet Explorer 9, or any other modern browser.</p>
   	</div>
   </div>
   {{/if}}
@@ -140,7 +146,7 @@
 <template name="userPage">
 <div class="row text-center">
 	<div class="span6 offset3">
-		<h1>{{userName}}</h1>
+		<h1>{{userName}}</h1>	
 		{{#if loggedIn}}
 		{{#unless isOwner}}
 		{{#if friends}}
