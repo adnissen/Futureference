@@ -131,7 +131,7 @@
   	<p>Did one of your friends just say something funny, stupid, or both? Now you can immortalize it on the internet forever! Getting started is easy! Simply login or create a new account below, add each-other as friends, and start adding quotes! It's really that easy. Never forget that hilarious or insightful line again.</p>
 
 	<p>Nobody will be able to see your quotes unless you accept them as a friend. Your moments of weakness are safe with us.</p>
-  	<p class="text-warning">Warning! This site requires Internet Explorer 9, or any other modern browser.</p>
+  	<p class="text-warning">Warning! This site requires Internet Explorer 8, or any other modern browser.</p>
   	</div>
   </div>
   {{/if}}
@@ -140,7 +140,8 @@
 </template>
 
 <template name="userSearch">
-	<input type="text" data-provide="typeahead" data-source='[{{friendData}}]' id="txtFriendSearch" placeholder="Search by Email or Username">
+	<small>Search by Email or Username</small><br>
+	<input type="text" data-provide="typeahead" data-source='[{{friendData}}]' id="txtFriendSearch" placeholder="">
 </template>
 
 <template name="userPage">
@@ -166,6 +167,7 @@
 	<div class="span6 offset3">
 		{{#if friends}}
 		{{#unless isOwner}}
+		<small>Add Quote</small><br>
 		<input type="text" id="txtAddQuote" placeholder="So fickle is the heart..."/>
 		{{/unless}}
 		{{/if}}
