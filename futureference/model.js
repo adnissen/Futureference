@@ -100,21 +100,33 @@ if (Meteor.isServer) {
 		 addFriend:function(_userId, _newFriendId){
 		 	if (Meteor.userId() == _userId)
 		 	{
-			 	//add it to the first one
-				Meteor.users.update({_id: _userId}, {$push: {friendsList: _newFriendId}});
+		 		//makes sure that the friend request the user is accepting has been sent by who they say it has
+		 		var sentList =  Meteor.users.findOne({_id: _newFriendId});
+		 		var found = false;
+		 		if (sentList && sentList.fSent)
+		 		{
+		 			for (var i = 0; i < sentList.fSent.length; i++) {
+		 				if (sentList.fSent[i] == _userId)
+		 					found = true;
+		 			};
+		 		}
+		 		if (found)
+		 		{
+				 	//add it to the first one
+					Meteor.users.update({_id: _userId}, {$push: {friendsList: _newFriendId}});
 
-				//now add it to the other
-				Meteor.users.update({_id: _newFriendId}, {$push: {friendsList: _userId}});
+					//now add it to the other
+					Meteor.users.update({_id: _newFriendId}, {$push: {friendsList: _userId}});
 
-				//remove it from everything
-				Meteor.users.update({_id: _userId}, {$pull: {fReceived: _newFriendId}});
-				Meteor.users.update({_id: _newFriendId}, {$pull: {fSent: _userId}});
+					//remove it from everything
+					Meteor.users.update({_id: _userId}, {$pull: {fReceived: _newFriendId}});
+					Meteor.users.update({_id: _newFriendId}, {$pull: {fSent: _userId}});
 
-				//return true so that isFriend can update the page
-				return true;
+					//return true so that isFriend can update the page
+					return true;
+				}
 			}
-			else
-				return "access denied";
+			return "access denied";
 		 },
 		 topQuotes:function(){
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
