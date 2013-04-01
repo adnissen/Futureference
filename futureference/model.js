@@ -25,6 +25,8 @@ if (Meteor.isServer) {
 		 //user related methods
 		 addToFavs:function(quote)
 		 {
+		 	if (Meteor.userId() != quote.owner)
+		 	{
 		 	var _userId = Meteor.userId();
 		 	var _quoteId = quote._id;
 			 var newTotal = quote.totalLiked;
@@ -33,7 +35,9 @@ if (Meteor.isServer) {
 			 Quotes.update({_id: _quoteId}, {$set: {totalLiked: newTotal}});
 
 			 Meteor.users.update({_id: _userId}, {$push: {favsList: _quoteId}})
-		 	
+		 	}
+		 	else
+		 		return "access denied";
 		 },
 		removeFavs:function(quote)
 		 {
@@ -59,11 +63,15 @@ if (Meteor.isServer) {
 		 			Quotes.insert({quote: _quote, username: data, owner: _userId, totalLiked: 0, timestamp: time});
 		 		});
 		 	}
+		 	else
+		 		return "access denied";
 		 },
 		 deleteQuote:function(_userId, _quote){
 		 	if (_userId == Meteor.userId()){ // only remove own quotes
 		 		Quotes.remove({_id: _quote});
 		 		}
+		 	else
+		 		return "access denied";
 		 },	
 		 sendFRequest: function(_senderId, _receivingId){
 		 	//add it to the sent list
@@ -76,27 +84,37 @@ if (Meteor.isServer) {
 		 	return true;
 		 },
 		 ignoreFrequest: function(_userId, _ignoreId){
-		 	//remove the id from the received and waiting for response list
-		 	Meteor.users.update({_id: _userId}, {$pull: {fReceived: _ignoreId}});
-		 	//then add it to the ignored list
-		 	Meteor.users.update({_id: _userId}, {$push: {fIgnored: _ignoreId}});
+		 	if (Meteor.userId() == _userId)
+		 	{
+			 	//remove the id from the received and waiting for response list
+			 	Meteor.users.update({_id: _userId}, {$pull: {fReceived: _ignoreId}});
+			 	//then add it to the ignored list
+			 	Meteor.users.update({_id: _userId}, {$push: {fIgnored: _ignoreId}});
 
-		 	//this is all we have to do here. It'll still show up as "sent" for the person who sent it
-		 	//but it won't bother the person who ignored it
+			 	//this is all we have to do here. It'll still show up as "sent" for the person who sent it
+			 	//but it won't bother the person who ignored it
+		 	}
+		 	else
+		 		return "access denied";
 		 },
 		 addFriend:function(_userId, _newFriendId){
-		 	//add it to the first one
-			Meteor.users.update({_id: _userId}, {$push: {friendsList: _newFriendId}});
+		 	if (Meteor.userId() == _userId)
+		 	{
+			 	//add it to the first one
+				Meteor.users.update({_id: _userId}, {$push: {friendsList: _newFriendId}});
 
-			//now add it to the other
-			Meteor.users.update({_id: _newFriendId}, {$push: {friendsList: _userId}});
+				//now add it to the other
+				Meteor.users.update({_id: _newFriendId}, {$push: {friendsList: _userId}});
 
-			//remove it from everything
-			Meteor.users.update({_id: _userId}, {$pull: {fReceived: _newFriendId}});
-			Meteor.users.update({_id: _newFriendId}, {$pull: {fSent: _userId}});
+				//remove it from everything
+				Meteor.users.update({_id: _userId}, {$pull: {fReceived: _newFriendId}});
+				Meteor.users.update({_id: _newFriendId}, {$pull: {fSent: _userId}});
 
-			//return true so that isFriend can update the page
-			return true;
+				//return true so that isFriend can update the page
+				return true;
+			}
+			else
+				return "access denied";
 		 },
 		 topQuotes:function(){
 		 	var topQuotes = Quotes.find({}, {sort: {score: 1}, limit: 5});
