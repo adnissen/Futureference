@@ -126,6 +126,7 @@
 	<div class="span6 offset3">
 		<h1>{{userName}}</h1>
 		{{#if loggedIn}}
+		{{#unless isOwner}}
 		{{#if friends}}
 		friends
 		{{else}}
@@ -135,13 +136,16 @@
 		<input type="button" value="Add Friend" class="btnAddFriend btn btn-link"/>
 		{{/if}}
 		{{/if}}
+		{{/unless}}
 		{{/if}}
 	</div>
 </div>
 <div class="row text-center">
 	<div class="span6 offset3">
 		{{#if friends}}
+		{{#unless isOwner}}
 		<input type="text" id="txtAddQuote" placeholder="So fickle is the heart..."/>
+		{{/unless}}
 		{{/if}}
 	</div>
 </div>

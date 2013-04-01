@@ -10,6 +10,10 @@ Template.userPage.loggedIn = function() {
 	return Meteor.userId();
 };
 
+Template.userPage.isOwner = function(){
+	return (Meteor.userId() == Session.get("currentPage"))
+};
+
 Template.userPage.sent = function(){
 	if (Meteor.user())
 	{
