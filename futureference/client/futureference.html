@@ -1,5 +1,6 @@
 <head>
   <title>futureference</title>
+   <link rel="shortcut icon" href="../assets/ico/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style type="text/css">
@@ -21,18 +22,8 @@
 </div>
   {{> nav}}
   {{> main}}
-  <div class="row text-center">
-  	<div class="span4 offset4">
-  {{> footer}} 
-</div>
-</div>
  </div>
 </body>
-
-<template name="footer">
-<small>&#169; 2013 Futureference. Made by <a href="http://adnissen.com">Andrew</a> and <a href="https://twitter.com/jenniee_l">Jennie</a></small>
-</template>
-
 <template name="alerts">
 {{#if active}}
 <div class="alert {{type}}">
@@ -46,15 +37,15 @@
      <div class="navbar">
       <div class="navbar-inner">
   	<div class="span6 offset3">
-  		
+  		{{loginButtons}}
+  		{{#if loggedIn}}
+   
      <a class="brand" href="#">FutuReference</a>
     <ul class="nav">
-    	 {{#if loggedIn}}
       <input type="button" value="Home" class="btnHome btn btn-link"/>
 
   		<input type="button" value="My Page" class="btnMyPage btn btn-link"/>
   		{{/if}}
-  		{{loginButtons}}
       </ul>
 
   	</div>
@@ -73,15 +64,24 @@
 <template name="home">
   <div class="row text-center">
   	<div class="span6 offset3">
-  <img src="logoWide.png">
+  <h1>Futureference</h1>
   <br>
   <br>
   	</div>
   </div>
   {{#if loggedIn}}
   <div class="row text-center">
-
-  <div class="span4 offset4">
+  <div class="span4">
+  <h3>Favorite Quotes:</h3>
+  {{#if hasFavs}}
+  {{#each FavQuotes}}
+  "{{this.quote}}" <br>- {{this.owner}}<br><br>
+  {{/each}}
+  {{else}}
+  No favorites!	
+  {{/if}}
+  </div>
+  <div class="span4">
   	<br>
   {{> userSearch}}
   <br>
@@ -95,25 +95,13 @@
   {{/each}}
   {{/if}}
   </div>
-</div>
-<div class="row text-center">
-  <div class="span4 offset2">
+  <div class="span4">
   	<h3>Recent Quotes:</h3>
   	{{#each RecentQuotes}}
 	"{{this.quote}}" <br>- {{this.username}}<br><br>
 	{{/each}}
   </div>
-	  <div class="span4">
-  <h3>Favorite Quotes:</h3>
-  {{#if hasFavs}}
-  {{#each FavQuotes}}
-  "{{this.quote}}" <br>- {{this.owner}}<br><br>
-  {{/each}}
-  {{else}}
-  No favorites!	
-  {{/if}}
   </div>
-</div>
 
   {{else}}
   <div class="row text-center">
@@ -124,10 +112,11 @@
   {{/if}}
   <br>
   <br>
+  <br>
 </template>
 
 <template name="userSearch">
-	<input type="text" data-provide="typeahead" data-source='[{{friendData}}]' id="txtFriendSearch" placeholder="Search by Email or Username">
+	<input type="text" data-provide="typeahead" data-source='["{{friendData}}"]' id="txtFriendSearch" placeholder="Search by Email or Username">
 </template>
 
 <template name="userPage">
@@ -135,7 +124,6 @@
 	<div class="span6 offset3">
 		<h1>{{userName}}</h1>
 		{{#if loggedIn}}
-		{{#unless isOwner}}
 		{{#if friends}}
 		friends
 		{{else}}
@@ -145,16 +133,13 @@
 		<input type="button" value="Add Friend" class="btnAddFriend btn btn-link"/>
 		{{/if}}
 		{{/if}}
-		{{/unless}}
 		{{/if}}
 	</div>
 </div>
 <div class="row text-center">
 	<div class="span6 offset3">
 		{{#if friends}}
-		{{#unless isOwner}}
 		<input type="text" id="txtAddQuote" placeholder="So fickle is the heart..."/>
-		{{/unless}}
 		{{/if}}
 	</div>
 </div>
