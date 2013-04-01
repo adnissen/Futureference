@@ -21,8 +21,18 @@
 </div>
   {{> nav}}
   {{> main}}
+  <div class="row text-center">
+  	<div class="span4 offset4">
+  {{> footer}} 
+</div>
+</div>
  </div>
 </body>
+
+<template name="footer">
+<small>&#169; 2013 Futureference. Made by <a href="http://adnissen.com">Andrew</a> and <a href="https://twitter.com/jenniee_l">Jennie</a></small>
+</template>
+
 <template name="alerts">
 {{#if active}}
 <div class="alert {{type}}">
@@ -112,9 +122,6 @@
   	</div>
   </div>
   {{/if}}
-  <br>
-  <br>
-  <br>
 </template>
 
 <template name="userSearch">
