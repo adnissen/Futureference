@@ -8,5 +8,8 @@ Template.nav.events({
 	},
 		'click input.btnHome':function(){
 		Session.set("currentPage", 0);
+	},
+	'click a.brand': function(){
+		Session.set("currentPage", 0);
 	}
 });
