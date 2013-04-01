@@ -63,24 +63,15 @@
 <template name="home">
   <div class="row text-center">
   	<div class="span6 offset3">
-  <img src="logoBig.png">
+  <img src="logoWide.png">
   <br>
   <br>
   	</div>
   </div>
   {{#if loggedIn}}
   <div class="row text-center">
-  <div class="span4">
-  <h3>Favorite Quotes:</h3>
-  {{#if hasFavs}}
-  {{#each FavQuotes}}
-  "{{this.quote}}" <br>- {{this.owner}}<br><br>
-  {{/each}}
-  {{else}}
-  No favorites!	
-  {{/if}}
-  </div>
-  <div class="span4">
+
+  <div class="span4 offset4">
   	<br>
   {{> userSearch}}
   <br>
@@ -94,13 +85,25 @@
   {{/each}}
   {{/if}}
   </div>
-  <div class="span4">
+</div>
+<div class="row text-center">
+  <div class="span4 offset2">
   	<h3>Recent Quotes:</h3>
   	{{#each RecentQuotes}}
 	"{{this.quote}}" <br>- {{this.username}}<br><br>
 	{{/each}}
   </div>
+	  <div class="span4">
+  <h3>Favorite Quotes:</h3>
+  {{#if hasFavs}}
+  {{#each FavQuotes}}
+  "{{this.quote}}" <br>- {{this.owner}}<br><br>
+  {{/each}}
+  {{else}}
+  No favorites!	
+  {{/if}}
   </div>
+</div>
 
   {{else}}
   <div class="row text-center">
