@@ -12,3 +12,11 @@ Session.setDefault("friendArray", []);
 Accounts.ui.config({
 	passwordSignupFields: 'USERNAME_AND_EMAIL'
 });
+
+Meteor.Router.add({
+	'/:username': function(username){
+		Meteor.call("getIdFromUsername", username, function(err, data){
+			Session.set("currentPage", data);
+		});
+	}
+});

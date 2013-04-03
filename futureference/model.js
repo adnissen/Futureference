@@ -141,6 +141,13 @@ if (Meteor.isServer) {
 		 	else
 		 		return null;
 		 },
+		 getIdFromUsername:function(user){
+		 	var obj = Meteor.users.findOne({username: user});
+		 	if (obj)
+		 		return obj._id;
+		 	else
+		 		return 0;
+		 },
 		 getEmailFromId:function(id){
 		 	var obj = Meteor.users.findOne({_id: id});
 		 	if (obj)
