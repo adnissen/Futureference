@@ -186,7 +186,7 @@
 
 <template name="quote">
 {{#if selectedQuote}}
-<p data-toggle="tooltip" class="quotes" data-animation = "true" title= "Likes: {{totalLiked}}">{{quote}}</p>
+<p data-toggle="tooltip" class="quotes" data-animation = "true" title= "Likes: {{totalLiked}}">"{{quote}}"</p>
 {{#if isOwner}}
 <input type="button" value="Delete" class="btnDelete btn btn-link"/>
 {{/if}}
@@ -202,6 +202,6 @@
 {{/unless}}
 {{/if}}
 {{#unless selectedQuote}}
-<p><data-toggle="tooltip" class="quotes" data-animation = "true" title= "Likes: {{totalLiked}}">{{quote}}</a></p>
+<p><data-toggle="tooltip" class="quotes" data-animation = "true" title= "Likes: {{totalLiked}}">"{{quote}}"</a></p>
 {{/unless}}
 </template>
