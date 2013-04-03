@@ -18,5 +18,8 @@ Meteor.Router.add({
 		Meteor.call("getIdFromUsername", username, function(err, data){
 			Session.set("currentPage", data);
 		});
+	},
+	'/home': function(){
+		Session.set("currentPage", 0);
 	}
 });
