@@ -2,6 +2,8 @@
 =====
 **Authentication**
 
+In order to use the API, you must get your api key by going to futref.me/api
+
 To authenticate a request, include your *loginName* and *apiKey* as parameters.
 - - -
 **Get User Quotes**
