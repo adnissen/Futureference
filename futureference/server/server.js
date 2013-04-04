@@ -18,6 +18,17 @@ Meteor.publish("quotes", function() {
 	return Quotes.find({owner: {$in: friendArray}});
 });
 
+Meteor.Router.add('/:username.json', 'GET', function(_username){
+	var obj = {"quotes": []};
+	var quotes = Quotes.find({username: _username}, {});
+	var count = 0;
+	quotes.forEach(function(post){
+		obj.quotes[count] = post.quote;
+		count++;
+	});
+	return JSON.stringify(obj);
+});
+
 Meteor.startup(function() {
 	//just add a quote if the db is empty for testing purposes
 	if (Quotes.find().count() == 0){
