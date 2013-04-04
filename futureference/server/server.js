@@ -1,7 +1,7 @@
 var mongo_url = process.env.MONGOHQ_URL;
 
 Meteor.publish("directory", function() {
-	return Meteor.users.find({$or: [{friendsList: this.userId}, {_id: this.userId}]});
+	return Meteor.users.find({$or: [{friendsList: this.userId}, {_id: this.userId}]}, {fields: {apiKey: 0}});
 });
 
 Meteor.publish("quotes", function() {

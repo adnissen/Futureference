@@ -27,8 +27,20 @@ if (Meteor.isServer) {
 		 {
 		 	if (Meteor.userId() == id)
 		 	{
-		 		var time = new Date().getTime(); //might as well just use the time, at least it will be unique
-		 		Meteor.users.update({_id: id}, {$set: {'apiKey':time}})
+		 		var key = new Date().getTime(); //might as well just use the time, at least it will be unique
+		 		Meteor.users.update({_id: id}, {$set: {'apiKey':key}})
+		 		return key;
+		 	}
+		 },
+		 getApiKey:function(id)
+		 {
+		 	if (Meteor.userId() == id)
+		 	{
+		 		var user = Meteor.users.findOne({_id: id});
+		 		if (user.apiKey)
+		 			return user.apiKey;
+		 		else
+		 			return "Click to generate a key.";
 		 	}
 		 },
 		 addToFavs:function(quote)

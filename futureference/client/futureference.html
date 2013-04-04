@@ -32,7 +32,7 @@
   {{> nav}}
   {{> main}}
   <div class="row text-center">
-  	<div class="span4 offset4">
+  	<div class="span6 offset3">
   {{> footer}} 
 </div>
 </div>
@@ -40,7 +40,7 @@
 </body>
 
 <template name="footer">
-<small>&#169; 2013 Futureference. Made by <a href="http://adnissen.com">Andrew</a> and <a href="https://twitter.com/jenniee_l">Jennie</a></small>
+<small>&#169; 2013 Futureference. Made by <a href="http://adnissen.com">Andrew</a> and <a href="https://twitter.com/jenniee_l">Jennie</a> (<a class="btnApi" href="#">API</a>)</small>
 </template>
 
 <template name="alerts">
@@ -74,7 +74,11 @@
 <template name="main">
   {{! it would be cool if this button was evenutally a logo or something}}
   {{#if currentPage}}
+  {{#unless api}}
   {{> userPage}}
+  {{else}}
+  {{> api}}
+  {{/unless}}
   {{else}}
   {{> home}}
   {{/if}}
@@ -204,4 +208,16 @@
 {{#unless selectedQuote}}
 <p><data-toggle="tooltip" class="quotes" data-animation = "true" title= "Likes: {{totalLiked}}">"{{quote}}"</a></p>
 {{/unless}}
+</template>
+
+<template name="api">
+{{#if loggedIn}}
+<div class="row text-center">
+  <div class="span4 offset4">
+  	<p>Your api key:</p>
+  	{{key}}<br><br>
+  	<input type="button" value="Generate Key" class="btnGenKey btn"/>
+  </div>
+</div>
+{{/if}}
 </template>
