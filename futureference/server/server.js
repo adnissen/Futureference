@@ -31,11 +31,16 @@ Meteor.Router.add('/:username.json', 'POST', function(_username){
 		var friends = Meteor.call("checkFriend", user._id, friendid);
 		if (friends)
 		{
-			var obj = {"quotes": []};
+			var obj = {"object": []};
 			var quotes = Quotes.find({username: _username}, {});
 			var count = 0;
 			quotes.forEach(function(post){
-				obj.quotes[count] = post.quote;
+				var quoteObj = {
+					quote: post.quote,
+					likes: post.totalLiked,
+					timestamp: post.timestamp
+				};
+				obj.object.push(quoteObj);
 				count++;
 			});
 			return JSON.stringify(obj) + "\n";
