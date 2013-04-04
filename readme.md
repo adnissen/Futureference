@@ -22,8 +22,10 @@ The first version of Futureference was a private php app, created late last year
 * Take full advantage of Meteor and make sure every part of the site was in realtime
 * Learn Meteor!
 
-# Currently in development
+# InDev
 ==========================
+The master branch is now updated to Meteor 0.6.0. You need to run `meteor update` in order to build in the project.
+
 Everything in this list can be seen in the dev branch. Note that you must have meteorite installed to run the dev version.
 
 * URL routing (for instance, futref.me/adnissen will link directly to the profile)
