@@ -21,5 +21,8 @@ Meteor.Router.add({
 	},
 	'/home': function(){
 		Session.set("currentPage", 0);
+	},
+	'/api': function(){
+		Session.set("currentPage", "api");
 	}
 });
