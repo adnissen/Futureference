@@ -26,17 +26,22 @@ Meteor.Router.add('/:username.json', 'POST', function(_username){
 	console.log(user.apiKey);
 	if (user && user.apiKey && user.apiKey == paramApiKey)
 	{
-		var obj = {"quotes": []};
-		var quotes = Quotes.find({username: _username}, {});
-		var count = 0;
-		quotes.forEach(function(post){
-			obj.quotes[count] = post.quote;
-			count++;
-		});
-		
-		return JSON.stringify(obj) + "\n";
+		console.log('true');
+		var friendid = Meteor.call("getIdFromUsername", _username);
+		var friends = Meteor.call("checkFriend", user._id, friendid);
+		if (friends)
+		{
+			var obj = {"quotes": []};
+			var quotes = Quotes.find({username: _username}, {});
+			var count = 0;
+			quotes.forEach(function(post){
+				obj.quotes[count] = post.quote;
+				count++;
+			});
+			return JSON.stringify(obj) + "\n";
+		}
 	}
-	return "Access Denied\n";
+	return "Access Denied!\n";
 });
 
 Meteor.startup(function() {
