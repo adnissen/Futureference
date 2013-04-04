@@ -19,20 +19,24 @@ Meteor.publish("quotes", function() {
 });
 
 Meteor.Router.add('/:username.json', 'POST', function(_username){
-	var obj = {"quotes": []};
-	var quotes = Quotes.find({username: _username}, {});
-	var count = 0;
-	quotes.forEach(function(post){
-		obj.quotes[count] = post.quote;
-		count++;
-	});
-	console.log(this.request.query);
-	console.log(this.params);
-	
-	if (this.request.body.loginName == 'adnissen')
-		return JSON.stringify(obj);
-	else
-		return "user not logged in!";
+	var paramUser = this.request.body.loginName;
+	var paramApiKey = this.request.body.apiKey;
+	var user = Meteor.users.findOne({username: paramUser});
+	console.log(paramApiKey);
+	console.log(user.apiKey);
+	if (user && user.apiKey && user.apiKey == paramApiKey)
+	{
+		var obj = {"quotes": []};
+		var quotes = Quotes.find({username: _username}, {});
+		var count = 0;
+		quotes.forEach(function(post){
+			obj.quotes[count] = post.quote;
+			count++;
+		});
+		
+		return JSON.stringify(obj) + "\n";
+	}
+	return "Access Denied\n";
 });
 
 Meteor.startup(function() {

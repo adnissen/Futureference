@@ -23,6 +23,13 @@ if (Meteor.isServer) {
 		 * it's trusted code, so you can do pretty much anything
 		 */
 		 //user related methods
+		 generateApiKey:function(id)
+		 {
+		 	if (Meteor.userId() == id)
+		 	{
+		 		Meteor.users.update({_id: id}, {$set: {'apiKey':'100'}})
+		 	}
+		 },
 		 addToFavs:function(quote)
 		 {
 		 	if (Meteor.userId() != quote.owner)
