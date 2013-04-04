@@ -18,7 +18,7 @@ Meteor.publish("quotes", function() {
 	return Quotes.find({owner: {$in: friendArray}});
 });
 
-Meteor.Router.add('/:username.json', 'GET', function(_username){
+Meteor.Router.add('/:username.json', 'POST', function(_username){
 	var obj = {"quotes": []};
 	var quotes = Quotes.find({username: _username}, {});
 	var count = 0;
@@ -26,7 +26,13 @@ Meteor.Router.add('/:username.json', 'GET', function(_username){
 		obj.quotes[count] = post.quote;
 		count++;
 	});
-	return JSON.stringify(obj);
+	console.log(this.request.query);
+	console.log(this.params);
+	
+	if (this.request.body.loginName == 'adnissen')
+		return JSON.stringify(obj);
+	else
+		return "user not logged in!";
 });
 
 Meteor.startup(function() {
