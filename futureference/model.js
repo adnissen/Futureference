@@ -27,7 +27,8 @@ if (Meteor.isServer) {
 		 {
 		 	if (Meteor.userId() == id)
 		 	{
-		 		Meteor.users.update({_id: id}, {$set: {'apiKey':'100'}})
+		 		var time = new Date().getTime(); //might as well just use the time, at least it will be unique
+		 		Meteor.users.update({_id: id}, {$set: {'apiKey':time}})
 		 	}
 		 },
 		 addToFavs:function(quote)
