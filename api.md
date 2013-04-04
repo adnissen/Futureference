@@ -18,6 +18,7 @@ You must be friends with the user in order to get their quotes.
 
 	[
 	  {
+	    "owner": "test1",
 	  	"id": "MFYhacLPhrqofzZ3Q",
 		"quote": "hello! this is a quote!",
 		"likes": 1,

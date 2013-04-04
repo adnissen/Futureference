@@ -36,6 +36,7 @@ Meteor.Router.add('/:username.json', 'POST', function(_username){
 			var count = 0;
 			quotes.forEach(function(post){
 				var quoteObj = {
+					owner: post.username,
 					id: post._id,
 					quote: post.quote,
 					likes: post.totalLiked,
