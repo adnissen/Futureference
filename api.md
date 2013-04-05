@@ -25,3 +25,15 @@ You must be friends with the user in order to get their quotes.
 		"timestamp":1364781523725
 	  }
 	]
+- - -
+**Add a Quote**
+
+You must be friends with the user in order to add a quote to their page.
+
+**url**: POST /:user.json
+
+**auth**: true (body)
+
+**response:**
+	
+	quote added!
