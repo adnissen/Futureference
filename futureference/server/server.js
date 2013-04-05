@@ -18,6 +18,7 @@ Meteor.publish("quotes", function() {
 	return Quotes.find({owner: {$in: friendArray}});
 });
 
+//get a users quotes
 Meteor.Router.add('/:username.json', 'GET', function(_username){
 	var paramUser = this.request.query.loginName;
 	var paramApiKey = this.request.query.apiKey;
@@ -47,6 +48,26 @@ Meteor.Router.add('/:username.json', 'GET', function(_username){
 				count++;
 			});
 			return JSON.stringify(obj) + "\n";
+		}
+	}
+	return "Access Denied!\n";
+});
+
+//add a quote to a user
+Meteor.Router.add('/:username.json', 'POST', function(_username){
+	var paramUser = this.request.body.loginName;
+	var paramApiKey = this.request.body.apiKey;
+	var newQuote = this.request.body.quote;
+	var user = Meteor.users.findOne({username: paramUser});
+	var userTarget = Meteor.users.findOne({username: _username});
+	if (user && user.apiKey && user.apiKey == paramApiKey && user != userTarget)
+	{
+		var friendid = Meteor.call("getIdFromUsername", _username);
+		var friends = Meteor.call("checkFriend", user._id, friendid);
+		if (friends)
+		{
+			Meteor.call("addQuote", friendid, newQuote);
+			return "quote added!\n";
 		}
 	}
 	return "Access Denied!\n";
