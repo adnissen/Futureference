@@ -66,8 +66,14 @@ Meteor.Router.add('/:username.json', 'POST', function(_username){
 		var friends = Meteor.call("checkFriend", user._id, friendid);
 		if (friends)
 		{
-			Meteor.call("addQuote", friendid, newQuote);
-			return "quote added!\n";
+			var _id = Meteor.call("addQuote", friendid, newQuote);
+			console.log(_id);
+			var obj = {
+				id: _id,
+				owner: userTarget.username,
+				quote: newQuote
+			};
+			return JSON.stringify(obj) + "\n";
 		}
 	}
 	return "Access Denied!\n";

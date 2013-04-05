@@ -79,9 +79,10 @@ if (Meteor.isServer) {
 		 	if (_userId != Meteor.userId())
 		 	{
 		 		var time = new Date().getTime();
-		 		Meteor.call("getUsername", _userId, function(err, data){
-		 			Quotes.insert({quote: _quote, username: data, owner: _userId, totalLiked: 0, timestamp: time});
-		 		});
+		 		var friendname = Meteor.call("getUsername", _userId);
+		 		var id = Quotes.insert({quote: _quote, username: friendname, owner: _userId, totalLiked: 0, timestamp: time});
+		 		console.log(id);
+		 		return id;
 		 	}
 		 	else
 		 		return "access denied";
