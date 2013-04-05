@@ -18,10 +18,11 @@ Meteor.publish("quotes", function() {
 	return Quotes.find({owner: {$in: friendArray}});
 });
 
-Meteor.Router.add('/:username.json', 'POST', function(_username){
-	var paramUser = this.request.body.loginName;
-	var paramApiKey = this.request.body.apiKey;
+Meteor.Router.add('/:username.json', 'GET', function(_username){
+	var paramUser = this.request.query.loginName;
+	var paramApiKey = this.request.query.apiKey;
 	var user = Meteor.users.findOne({username: paramUser});
+	console.log(this.request);
 	console.log(paramApiKey);
 	console.log(user.apiKey);
 	if (user && user.apiKey && user.apiKey == paramApiKey)
