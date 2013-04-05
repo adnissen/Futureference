@@ -36,8 +36,12 @@ You must be friends with the user in order to add a quote to their page.
 
 **body**: 
 
-	quote=*string*
+	quote=*string*"
 
 **response:**
 	
-	quote added!
+	{
+	"owner":"test1",
+	"id":"cG3JN3bZrSNh6ZmEM",
+	"quote":"yo"	
+	}
