@@ -34,6 +34,10 @@ You must be friends with the user in order to add a quote to their page.
 
 **auth**: true (body)
 
+**body**: 
+
+	quote=*string*
+
 **response:**
 	
 	quote added!
