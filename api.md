@@ -45,3 +45,19 @@ You must be friends with the user in order to add a quote to their page.
 	"id":"cG3JN3bZrSNh6ZmEM",
 	"quote":"yo"	
 	}
+	
+- - -
+**Get Favorite Quotes**
+
+Retrieves the favorites of the logged in user.
+
+**url**: GET /:user/favorites.json
+
+**auth**: true (parameters)
+
+**response:**
+		
+	[
+		{"quote":"hi","owner":"test1"},
+		{"quote":"another quote","owner":"test1"}
+	]
