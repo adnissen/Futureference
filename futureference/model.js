@@ -215,7 +215,11 @@ if (Meteor.isServer) {
 		 },
 		 convertFavesToQuotes:function(_userId)
 		 {
-		 	var idList = Meteor.users.findOne({_id: Meteor.userId()}).favsList;
+		 	var user = Meteor.users.findOne({_id: Meteor.userId()});
+		 	if (user && user.favsList)
+		 	{
+		 		var idList = user.favsList;
+		 	}
 		 	var quoteList = idList;
 		 	var _quote;
 		 	var result = {};

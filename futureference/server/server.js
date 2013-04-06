@@ -79,6 +79,21 @@ Meteor.Router.add('/:username.json', 'POST', function(_username){
 	return "Access Denied!\n";
 });
 
+//get a users favorites
+Meteor.Router.add('/:username/favorites.json', 'GET', function(_username){
+	console.log("in favorites");
+	var paramUser = this.request.query.loginName;
+	var paramApiKey = this.request.query.apiKey;
+	var user = Meteor.users.findOne({username: paramUser});
+	if (user && user.apiKey && user.apiKey == paramApiKey && user.favsList)
+	{
+		console.log("user id: " + user._id);
+		var favorites = Meteor.call("convertFavesToQuotes", user._id);
+		return JSON.stringify(favorites) + "\n";
+	}
+	return "Acess Denied!\n";
+});
+
 Meteor.startup(function() {
 	//just add a quote if the db is empty for testing purposes
 	if (Quotes.find().count() == 0){
