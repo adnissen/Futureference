@@ -75,7 +75,7 @@ Template.home.FavQuotes = function() {
 	var list = 0;
 	if (Meteor.userId())
 	{
-		Meteor.call("convertFavesToQuotes", Meteor.userId, function(err, data){
+		Meteor.call("convertFavesToQuotes", Meteor.userId(), function(err, data){
 			if (data)
 			{
 				list = data;
