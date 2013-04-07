@@ -108,7 +108,7 @@ Meteor.Router.add('/:username/favorites.json', 'POST', function(_username){
 		if (quoteObj && Meteor.call("checkFriend", user._id, quoteObj.owner))
 		{
 			Meteor.call("addToFavs", quoteObj, user);
-			return "success\n";
+			return JSON.stringify(quoteObj) + "\n";
 		}
 	}
 	return "Access Denied!\n";
