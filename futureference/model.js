@@ -43,17 +43,30 @@ if (Meteor.isServer) {
 		 			return "Click to generate a key.";
 		 	}
 		 },
-		 addToFavs:function(quote)
+		 checkFavs:function(quote, _user)
 		 {
-		 	if (Meteor.userId() != quote.owner)
+		 	var quote = Quotes.findOne({_id: quote});
+		 	if (_user && _user.favsList)
 		 	{
-		 	var _userId = Meteor.userId();
+		 		for (var i = 0; i < _user.favsList.length; i++) {
+		 			if (quote._id == _user.favsList[i])
+		 			{
+		 				return true;
+		 			}
+		 		}
+		 	}
+		 	return false;
+		 },
+		 addToFavs:function(quote, _user)
+		 {
+		 	if (_user._id != quote.owner)
+		 	{
+		 	var _userId = _user._id;
 		 	var _quoteId = quote._id;
 			 var newTotal = quote.totalLiked;
 			 console.log(quote.totalLiked);
 			 newTotal++;
 			 Quotes.update({_id: _quoteId}, {$set: {totalLiked: newTotal}});
-
 			 Meteor.users.update({_id: _userId}, {$push: {favsList: _quoteId}})
 		 	}
 		 	else

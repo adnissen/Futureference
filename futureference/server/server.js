@@ -94,6 +94,26 @@ Meteor.Router.add('/:username/favorites.json', 'GET', function(_username){
 	return "Acess Denied!\n";
 });
 
+//add a quote to the users favorites
+Meteor.Router.add('/:username/favorites.json', 'POST', function(_username){
+	var paramUser = this.request.body.loginName;
+	var paramApiKey = this.request.body.apiKey;
+	var paramQuote = this.request.body.quote;
+	var user = Meteor.users.findOne({username: paramUser});
+	var isFaved = Meteor.call("checkFavs", paramQuote, user);
+	if (user && user.apiKey && user.apiKey == paramApiKey && !isFaved)
+	{
+		console.log("made it through the if");
+		var quoteObj = Quotes.findOne({_id: paramQuote});
+		if (quoteObj && Meteor.call("checkFriend", user._id, quoteObj.owner))
+		{
+			Meteor.call("addToFavs", quoteObj, user);
+			return "success\n";
+		}
+	}
+	return "Access Denied!\n";
+});
+
 Meteor.startup(function() {
 	//just add a quote if the db is empty for testing purposes
 	if (Quotes.find().count() == 0){
