@@ -61,3 +61,25 @@ Retrieves the favorites of the logged in user.
 		{"quote":"hi","owner":"test1"},
 		{"quote":"another quote","owner":"test1"}
 	]
+- - -
+**Add a Quote to Favorites**
+
+You must be friends with the owner of the quote in order to add it to a users favorites.
+
+**url**: POST /:user/favorites.json
+
+**auth**: true (body)
+
+**body**:
+	
+	quote=quote._id
+
+**response**:
+
+	{
+	"quote":"another quote",
+	"username":"test1",
+	"owner":"5XduG3K8GShqQLF5y",
+	"totalLiked":3,"timestamp":1364781523725,
+	"_id":"xMx3wLaBuJWt23tXK"
+	}
