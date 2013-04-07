@@ -83,3 +83,24 @@ You must be friends with the owner of the quote in order to add it to a users fa
 	"totalLiked":3,"timestamp":1364781523725,
 	"_id":"xMx3wLaBuJWt23tXK"
 	}
+- - -
+**Remove a Quote from Favorites**
+
+**url**: DELETE /:user/favorites.json
+
+**auth**: true (body)
+
+**body**:
+	
+	quote=quote._id
+
+**response**:
+
+	{
+	"quote":"another quote",
+	"username":"test1",
+	"owner":"5XduG3K8GShqQLF5y",
+	"totalLiked":3,"timestamp":1364781523725,
+	"_id":"xMx3wLaBuJWt23tXK"
+	}
+	
