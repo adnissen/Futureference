@@ -72,9 +72,9 @@ if (Meteor.isServer) {
 		 	else
 		 		return "access denied";
 		 },
-		removeFavs:function(quote)
+		removeFavs:function(quote, _user)
 		 {
-		 	var _userId = Meteor.userId();
+		 	var _userId = _user._id;
 		 	var _quoteId = quote._id;
 			 var newTotal = quote.totalLiked;
 			 console.log(quote.totalLiked);
