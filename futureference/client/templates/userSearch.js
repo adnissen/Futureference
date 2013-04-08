@@ -26,7 +26,6 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 		directorySubscription = Meteor.subscribe("directory");
 		quotesSubscription.stop();
 		quotesSubscription = Meteor.subscribe("quotes")
-		Session.set("currentPage", 0);
 	}
 }));
 

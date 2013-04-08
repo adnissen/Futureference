@@ -55,16 +55,17 @@
 <div class="row text-center">
      <div class="navbar">
       <div class="navbar-inner">
-  	<div class="span6 offset3">
+  	<div class="span8 offset2">
   		
      <a class="brand" href="#">FutuReference</a>
     <ul class="nav">
+    	  		{{loginButtons}}
     	 {{#if loggedIn}}
       <input type="button" value="Home" class="btnHome btn btn-link"/>
 
   		<input type="button" value="My Page" class="btnMyPage btn btn-link"/>
   		{{/if}}
-  		{{loginButtons}}
+  		{{> userSearch}}
       </ul>
 
   	</div>
@@ -92,10 +93,6 @@
   <div class="row text-center">
 
   <div class="span4 offset4">
-  	<br>
-  {{> userSearch}}
-  <br>
-  <br>
   {{#if requests}}
   {{#each request}}
   {{this}}<br>
@@ -140,8 +137,7 @@
 </template>
 
 <template name="userSearch">
-	<small>Search by Email or Username</small><br>
-	<input type="text" data-provide="typeahead" data-source='[{{friendData}}]' id="txtFriendSearch" placeholder="">
+	<input type="text" data-provide="typeahead" data-source='[{{friendData}}]' id="txtFriendSearch" value="search by email or username">
 </template>
 
 <template name="userPage">
