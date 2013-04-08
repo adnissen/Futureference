@@ -23,25 +23,58 @@ if (Meteor.isServer) {
 		 * it's trusted code, so you can do pretty much anything
 		 */
 		 //user related methods
-		 addToFavs:function(quote)
+		 generateApiKey:function(id)
 		 {
-		 	if (Meteor.userId() != quote.owner)
+		 	if (Meteor.userId() == id)
 		 	{
-		 	var _userId = Meteor.userId();
+		 		var key = new Date().getTime(); //might as well just use the time, at least it will be unique
+		 		Meteor.users.update({_id: id}, {$set: {'apiKey':key}})
+		 		return key;
+		 	}
+		 },
+		 getApiKey:function(id)
+		 {
+		 	if (Meteor.userId() == id)
+		 	{
+		 		var user = Meteor.users.findOne({_id: id});
+		 		if (user.apiKey)
+		 			return user.apiKey;
+		 		else
+		 			return "Click to generate a key.";
+		 	}
+		 },
+		 checkFavs:function(quote, _user)
+		 {
+		 	var quote = Quotes.findOne({_id: quote});
+		 	if (_user && _user.favsList)
+		 	{
+		 		for (var i = 0; i < _user.favsList.length; i++) {
+		 			if (quote._id == _user.favsList[i])
+		 			{
+		 				return true;
+		 			}
+		 		}
+		 	}
+		 	return false;
+		 },
+		 addToFavs:function(quote, _user)
+		 {
+		 	if (_user._id != quote.owner)
+		 	{
+		 	var _userId = _user._id;
 		 	var _quoteId = quote._id;
 			 var newTotal = quote.totalLiked;
 			 console.log(quote.totalLiked);
 			 newTotal++;
 			 Quotes.update({_id: _quoteId}, {$set: {totalLiked: newTotal}});
-
 			 Meteor.users.update({_id: _userId}, {$push: {favsList: _quoteId}})
 		 	}
 		 	else
 		 		return "access denied";
 		 },
-		removeFavs:function(quote)
+		removeFavs:function(quote, _user)
 		 {
-		 	var _userId = Meteor.userId();
+		 	var _userId = _user._id;
 		 	var _quoteId = quote._id;
 			 var newTotal = quote.totalLiked;
 			 console.log(quote.totalLiked);
@@ -59,9 +92,10 @@ if (Meteor.isServer) {
 		 	if (_userId != Meteor.userId())
 		 	{
 		 		var time = new Date().getTime();
-		 		Meteor.call("getUsername", _userId, function(err, data){
-		 			Quotes.insert({quote: _quote, username: data, owner: _userId, totalLiked: 0, timestamp: time});
-		 		});
+		 		var friendname = Meteor.call("getUsername", _userId);
+		 		var id = Quotes.insert({quote: _quote, username: friendname, owner: _userId, totalLiked: 0, timestamp: time});
+		 		console.log(id);
+		 		return id;
 		 	}
 		 	else
 		 		return "access denied";
@@ -141,6 +175,13 @@ if (Meteor.isServer) {
 		 	else
 		 		return null;
 		 },
+		 getIdFromUsername:function(user){
+		 	var obj = Meteor.users.findOne({username: user});
+		 	if (obj)
+		 		return obj._id;
+		 	else
+		 		return 0;
+		 },
 		 getEmailFromId:function(id){
 		 	var obj = Meteor.users.findOne({_id: id});
 		 	if (obj)
@@ -187,7 +228,12 @@ if (Meteor.isServer) {
 		 },
 		 convertFavesToQuotes:function(_userId)
 		 {
-		 	var idList = Meteor.users.findOne({_id: Meteor.userId()}).favsList;
+		 	var user = Meteor.users.findOne({_id: _userId});
+		 	if (user && user.favsList)
+		 	{
+		 		console.log("found user");
+		 		var idList = user.favsList;
+		 	}
 		 	var quoteList = idList;
 		 	var _quote;
 		 	var result = {};
