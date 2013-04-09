@@ -59,13 +59,13 @@
   		
      <a class="brand" href="#">FutuReference</a>
     <ul class="nav">
-    	  		{{loginButtons}}
-    	 {{#if loggedIn}}
-      <input type="button" value="Home" class="btnHome btn btn-link"/>
+    	{{loginButtons}}
+    	{{#if loggedIn}}
+     	<input type="button" value="Home" class="btnHome btn btn-link"/>
 
   		<input type="button" value="My Page" class="btnMyPage btn btn-link"/>
-  		{{/if}}
   		{{> userSearch}}
+  		{{/if}}
       </ul>
 
   	</div>
