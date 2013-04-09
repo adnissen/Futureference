@@ -50,12 +50,12 @@ Template.quote.events({
 	},
 	'click input.btnFavorite': function(){
 		
-		Meteor.call("addToFavs", this);
+		Meteor.call("addToFavs", this, Meteor.user());
 
 	},
 	'click input.btnUnFav': function(){
 		
-		Meteor.call("removeFavs", this);
+		Meteor.call("removeFavs", this, Meteor.user());
 
 	}
 });

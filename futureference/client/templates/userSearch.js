@@ -18,9 +18,9 @@ Template.userSearch.events(okCancelEvents('#txtFriendSearch', {
 			}
 		});*/
 		Meteor.call("userSearch", text, function(error, data){
-			console.log(data);
+			//console.log(data);
 			if (data)
-				Session.set("currentPage", data);
+				Meteor.Router.to('/' + data);
 		});
 		directorySubscription.stop();
 		directorySubscription = Meteor.subscribe("directory");
