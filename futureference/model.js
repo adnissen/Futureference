@@ -216,12 +216,12 @@ if (Meteor.isServer) {
 		 {
 		 	var user = Meteor.users.findOne({emails: {$elemMatch: {address: _email}}});
 		 	if (user)
-		 		return user._id;
+		 		return user.username;
 		 	else
 		 		{
 		 			user = Meteor.users.findOne({username: _email});
 		 			if (user)
-		 				return user._id;
+		 				return user.username;
 		 			else
 		 				return false;
 		 		}
