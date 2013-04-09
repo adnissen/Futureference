@@ -4,12 +4,12 @@ Template.nav.loggedIn = function() {
 
 Template.nav.events({
 	'click input.btnMyPage':function(){
-		Session.set("currentPage", Meteor.userId());
+		Meteor.Router.to('/' + Meteor.user().username);
 	},
 		'click input.btnHome':function(){
-		Session.set("currentPage", 0);
+		Meteor.Router.to('/home');
 	},
 	'click a.brand': function(){
-		Session.set("currentPage", 0);
+		Meteor.Router.to('/home');
 	}
 });

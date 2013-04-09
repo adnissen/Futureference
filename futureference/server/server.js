@@ -1,7 +1,7 @@
 mongo_url = process.env.MONGOHQ_URL;
 
 Meteor.publish("directory", function() {
-	return Meteor.users.find({$or: [{friendsList: this.userId}, {_id: this.userId}]});
+	return Meteor.users.find({$or: [{friendsList: this.userId}, {_id: this.userId}]}, {fields: {apiKey: 0}});
 });
 
 Meteor.publish("quotes", function() {
@@ -16,6 +16,122 @@ Meteor.publish("quotes", function() {
 	console.log(friendArray);
 	console.log(Quotes.find({owner: friendArray}));
 	return Quotes.find({owner: {$in: friendArray}});
+});
+
+//get a users quotes
+Meteor.Router.add('/:username.json', 'GET', function(_username){
+	var paramUser = this.request.query.loginName;
+	var paramApiKey = this.request.query.apiKey;
+	var user = Meteor.users.findOne({username: paramUser});
+	console.log(this.request);
+	console.log(paramApiKey);
+	console.log(user.apiKey);
+	if (user && user.apiKey && user.apiKey == paramApiKey)
+	{
+		console.log('true');
+		var friendid = Meteor.call("getIdFromUsername", _username);
+		var friends = Meteor.call("checkFriend", user._id, friendid);
+		if (friends)
+		{
+			var obj = {"object": []};
+			var quotes = Quotes.find({username: _username}, {});
+			var count = 0;
+			quotes.forEach(function(post){
+				var quoteObj = {
+					owner: post.username,
+					id: post._id,
+					quote: post.quote,
+					likes: post.totalLiked,
+					timestamp: post.timestamp
+				};
+				obj.object.push(quoteObj);
+				count++;
+			});
+			return JSON.stringify(obj) + "\n";
+		}
+	}
+	return "Access Denied!\n";
+});
+
+//add a quote to a user
+Meteor.Router.add('/:username.json', 'POST', function(_username){
+	var paramUser = this.request.body.loginName;
+	var paramApiKey = this.request.body.apiKey;
+	var newQuote = this.request.body.quote;
+	var user = Meteor.users.findOne({username: paramUser});
+	var userTarget = Meteor.users.findOne({username: _username});
+	if (user && user.apiKey && user.apiKey == paramApiKey && user != userTarget)
+	{
+		var friendid = Meteor.call("getIdFromUsername", _username);
+		var friends = Meteor.call("checkFriend", user._id, friendid);
+		if (friends)
+		{
+			var _id = Meteor.call("addQuote", friendid, newQuote);
+			console.log(_id);
+			var obj = {
+				id: _id,
+				owner: userTarget.username,
+				quote: newQuote
+			};
+			return JSON.stringify(obj) + "\n";
+		}
+	}
+	return "Access Denied!\n";
+});
+
+//get a users favorites
+Meteor.Router.add('/:username/favorites.json', 'GET', function(_username){
+	console.log("in favorites");
+	var paramUser = this.request.query.loginName;
+	var paramApiKey = this.request.query.apiKey;
+	var user = Meteor.users.findOne({username: paramUser});
+	if (user && user.apiKey && user.apiKey == paramApiKey && user.favsList)
+	{
+		console.log("user id: " + user._id);
+		var favorites = Meteor.call("convertFavesToQuotes", user._id);
+		return JSON.stringify(favorites) + "\n";
+	}
+	return "Acess Denied!\n";
+});
+
+//add a quote to the users favorites
+Meteor.Router.add('/:username/favorites.json', 'POST', function(_username){
+	var paramUser = this.request.body.loginName;
+	var paramApiKey = this.request.body.apiKey;
+	var paramQuote = this.request.body.quote;
+	var user = Meteor.users.findOne({username: paramUser});
+	var isFaved = Meteor.call("checkFavs", paramQuote, user);
+	if (user && user.apiKey && user.apiKey == paramApiKey && !isFaved)
+	{
+		console.log("made it through the if");
+		var quoteObj = Quotes.findOne({_id: paramQuote});
+		if (quoteObj && Meteor.call("checkFriend", user._id, quoteObj.owner))
+		{
+			Meteor.call("addToFavs", quoteObj, user);
+			return JSON.stringify(quoteObj) + "\n";
+		}
+	}
+	return "Access Denied!\n";
+});
+
+//remove a quote from favorites
+Meteor.Router.add('/:username/favorites.json', 'DELETE', function(_username){
+	var paramUser = this.request.body.loginName;
+	var paramApiKey = this.request.body.apiKey;
+	var paramQuote = this.request.body.quote;
+	var user = Meteor.users.findOne({username: paramUser});
+	var isFaved = Meteor.call("checkFavs", paramQuote, user);
+	if (user && user.apiKey && user.apiKey == paramApiKey && isFaved)
+	{
+		console.log("made it through the if");
+		var quoteObj = Quotes.findOne({_id: paramQuote});
+		if (quoteObj && Meteor.call("checkFriend", user._id, quoteObj.owner))
+		{
+			Meteor.call("removeFavs", quoteObj, user);
+			return JSON.stringify(quoteObj) + "\n";
+		}
+	}
+	return "Access Denied!\n";
 });
 
 Meteor.startup(function() {
