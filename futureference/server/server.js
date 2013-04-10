@@ -134,6 +134,15 @@ Meteor.Router.add('/:username/favorites.json', 'DELETE', function(_username){
 	return "Access Denied!\n";
 });
 
+//get the total number of quotes
+Meteor.Router.add('/users/count.json', 'GET', function(){
+	return JSON.stringify(Meteor.users.find({}).count());
+});
+
+Meteor.Router.add('/quotes/count.json', 'GET', function(){
+	return JSON.stringify(Quotes.find({}).count());
+});
+
 Meteor.startup(function() {
 	//just add a quote if the db is empty for testing purposes
 	if (Quotes.find().count() == 0){
