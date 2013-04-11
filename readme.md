@@ -26,12 +26,10 @@ The first version of Futureference was a private php app, created late last year
 ==========================
 Everything in this list can be seen in the dev branch. Note that you must have meteorite installed to run the dev version.
 
-* URL routing (for instance, futref.me/adnissen will link directly to the profile)
 * API (all methods are currently documented in api.md, also in the dev branch)
 
 # TODO (maybe)
 ==============
-* Move the user search bar to the top
 * Let users un-favorite quotes from the homepage.
 * Add in remove friends.
 * Add in the option to add someone as a friend after they've been ignored.
